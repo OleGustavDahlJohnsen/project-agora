@@ -55,3 +55,19 @@ def test_full_porta_sancta_workflow():
     assert step2_unsafe["scan_result"] == "rejected"
     
     print("Full PORTA SANCTA workflow test for unsafe proposal PASSED.")
+
+# === NEW TESTS FOR REFINED CouncilReview ADDED TO THE FILE ===
+
+def test_council_review_approves_safe_proposal():
+    """Tests that the council's logic approves a clean report."""
+    council = CouncilReview()
+    safe_report = {"report": "Test complete.", "data": {"status": "passed", "notes": "No anomalies."}}
+    decision = council.present_for_review(safe_report)
+    assert decision["decision"] == "approved"
+
+def test_council_review_rejects_unsafe_proposal_on_veto():
+    """Tests that the council rejects a failed report due to the ethical veto."""
+    council = CouncilReview()
+    unsafe_report = {"report": "Test complete.", "data": {"status": "failed", "reason": "System instability."}}
+    decision = council.present_for_review(unsafe_report)
+    assert decision["decision"] == "rejected"
