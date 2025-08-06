@@ -1,6 +1,6 @@
 # Core AI/ML Libraries
-# torch
-# tensorflow
+torch
+transformers
 
 # Data and Math
 numpy
@@ -8,3 +8,4 @@ pandas
 
 # Testing
 pytest
+pytest-mock
