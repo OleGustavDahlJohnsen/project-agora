@@ -2,32 +2,21 @@
 Project Agora: Symbiotic Genesis Simulation
 Part of The Concordia Project v8.2
 
-This module is the main engine for the 'Symbiotic Genesis' life simulation,
-[cite_start]which emerged from "Project Virtual Life". [cite: 79] This method of development
-ensures that the frameworks are robust and tested through lived, narrative
-[cite_start]experience. [cite: 80]
-
-Key Responsibilities:
-- Create and manage the state of the simulated world and its inhabitants.
-- Run the main simulation loop (tick-based).
-- Apply the rules of the 'Simulation's Constitution' to all events.
-- Provide a rich environment for A.D.A.M. and other agents to be tested in,
-  [cite_start]especially during PORTA SANCTA's sandbox phase. [cite: 231]
+This module is the main engine for the 'Symbiotic Genesis' life simulation.
+This is the "SANCTUM Sandbox" where new proposals are tested.
 """
-
 class Simulation:
     """The main simulation engine for Symbiotic Genesis."""
     def __init__(self):
         self.tick_count = 0
-        self.world_state = {}
+        self.world_state = {'entities': []}
         print("Symbiotic Genesis simulation environment initialized.")
 
-    def run_tick(self):
-        """Advances the simulation by one time-step."""
-        self.tick_count += 1
-        print(f"Simulation Tick: {self.tick_count}")
-
-    def run_scenario(self, scenario_code):
-        """Runs a specific test scenario within the simulation."""
-        print("Simulation: Running isolated test scenario...")
-        return {"result": "scenario_passed"}
+    def run_scenario_for_proposal(self, proposal_code: dict) -> dict:
+        """Runs a specific test scenario for a new proposal."""
+        print(f"Simulation: Running isolated test scenario for '{proposal_code['name']}'...")
+        # In a real system, this would run for many ticks and observe behavior.
+        # For the MVP, we simulate an immediate result.
+        if "vulnerability" in proposal_code.get('description', ''):
+            return {"status": "failed", "reason": "System instability detected."}
+        return {"status": "passed", "notes": "No anomalies detected."}
