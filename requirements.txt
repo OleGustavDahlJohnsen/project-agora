@@ -9,3 +9,4 @@ pandas
 # Testing
 pytest
 pytest-mock
+pytest-asyncio
