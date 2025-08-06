@@ -102,3 +102,26 @@ def test_brainstem_uses_emotional_context():
     assert "Support" in brain_stem.synthesize(analyses_negative)['name']
     assert "Assistance" in brain_stem.synthesize(analyses_neutral)['name']
 
+# === NEW TESTS FOR RationaleEngine ADDED TO THE FILE ===
+
+def test_adam_rationale_engine_consistency_check():
+    """Tests the RationaleEngine's ability to detect contradictions."""
+    engine = ADAM.RationaleEngine()
+    
+    consistent_input = {"text": "The ocean is blue."}
+    contradictory_input = {"text": "I saw that the sky is green."}
+    
+    assert engine.analyze(consistent_input)['logic'] == 'sound'
+    assert engine.analyze(contradictory_input)['logic'] == 'contradiction_detected'
+
+def test_brainstem_prioritizes_rationale_over_emotion():
+    """Tests that the BrainStem's output changes to seek clarification
+    even if there is a strong emotional signal."""
+    brain_stem = ADAM.BrainStem()
+    
+    analyses_contradictory = {
+        "emotion": {"affect": "positive"},
+        "rationale": {"logic": "contradiction_detected", "details": "test"}
+    }
+    
+    assert "Clarification" in brain_stem.synthesize(analyses_contradictory)['name']
