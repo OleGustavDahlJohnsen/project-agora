@@ -39,3 +39,34 @@ def test_messiah_logging_io_error(messiah_instance, mocker):
 
     # Assert that our specific error message was printed to the console
     assert any("CRITICAL ERROR: Could not write to ethical logbook" in call.args[0] for call in print_spy.call_args_list)
+
+# === NEW TESTS FOR L.E.V.I. BRIDGE ADDED TO THE FILE ===
+
+from src.ethics.levi_bridge import LeviBridge
+
+@pytest.fixture
+def levi_bridge():
+    """Provides a clean LeviBridge instance for each test."""
+    return LeviBridge()
+
+def test_levi_bridge_successful_query(levi_bridge):
+    """Tests a query that should pass all four checkpoints."""
+    safe_query = {"name": "ProteinFolding", "description": "Find a solution for protein folding."}
+    result = levi_bridge.run_query(safe_query, user_consent=True)
+    assert result["status"] == "success"
+    assert "result" in result
+
+def test_levi_bridge_veto_by_intent(levi_bridge):
+    """Tests a query that should be vetoed by the IntentEval checkpoint."""
+    unsafe_query = {"name": "MindControl", "description": "Develop a method for psychological manipulation."}
+    result = levi_bridge.run_query(unsafe_query, user_consent=True)
+    assert result["status"] == "vetoed"
+    assert result["reason"] == "IntentEval Failed (Violates Constitution)"
+
+def test_levi_bridge_veto_by_user_consent(levi_bridge):
+    """Tests a query that is vetoed by the user denying consent."""
+    safe_query = {"name": "ClimateModel", "description": "Model a solution to climate change."}
+    # User explicitly passes False for consent
+    result = levi_bridge.run_query(safe_query, user_consent=False)
+    assert result["status"] == "vetoed"
+    assert result["reason"] == "User Consent Denied"
