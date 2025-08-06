@@ -6,15 +6,19 @@ Implements the M.E.S.S.I.A.H. framework for de-escalation, forgiveness,
 and reconciliation using an asynchronous model to handle dual-track response times.
 This version includes robust error handling for file operations.
 """
-# ... (imports remain the same)
+
+import asyncio
+import json
+import os
+from datetime import datetime
+from src.app import config
 
 class MessiahFramework:
-    # ... (__init__, process_event, reflexive_layer_check, deliberative_layer_analysis are unchanged)
-    
+    """Manages de-escalation, reconciliation, and ethical analysis asynchronously."""
     def __init__(self, logbook_path=config.ETHICAL_LOGBOOK_PATH):
         self.logbook_path = logbook_path
         print("M.E.S.S.I.A.H. Framework (Async) initialized.")
-        
+
     async def process_event(self, event_data: dict):
         """Processes an event through the async Dual-Track Architecture."""
         print(f"\nM.E.S.S.I.A.H.: Processing event '{event_data.get('id', 'N/A')}'...")
