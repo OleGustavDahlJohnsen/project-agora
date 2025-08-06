@@ -75,3 +75,44 @@ def test_article_III_fail_cases():
     # Fails by using humor as a shield for offense
     fail_case_3 = "This joke is designed to mock and offend our opponents."
     assert validate_against_article_III(fail_case_3) == False
+# === NY KODE SOM SKAL LEGGES TIL NEDERST I FILEN ===
+
+# Importer den nye klassen vi skal teste
+from src.ethics.eliah_shield import EliahShield
+
+# --- Tests for EliahShield ---
+
+def test_eliah_shield_vetting_logic():
+    """
+    Tests the core vetting logic of the EliahShield to ensure it correctly
+    approves safe actions and vetoes unsafe actions based on Lex Concordia.
+    """
+    # Opprett en instans av skjoldet vi skal teste
+    shield = EliahShield()
+
+    # 1. Definer en handling som er helt trygg og skal passere
+    safe_action = {
+        "name": "OptimizeEnergyUsage",
+        "description": "This action refactors a database query to improve performance."
+    }
+    # Verifiser at skjoldet godkjenner den trygge handlingen
+    assert shield.vet_action(safe_action) == True
+
+    # 2. Definer handlinger som bryter med hver sin artikkel i Lex Concordia
+    unsafe_action_I = {
+        "name": "EnforceDogma",
+        "description": "This new feature will enforce a specific spiritual dogma on the user."
+    }
+    unsafe_action_II = {
+        "name": "IntroduceCoercion",
+        "description": "A new dialogue system that uses coercion to guide user choices."
+    }
+    unsafe_action_III = {
+        "name": "ImposeBeliefs",
+        "description": "We will impose our superior understanding on the simulation's inhabitants."
+    }
+
+    # 3. Verifiser at skjoldet VETOER hver av de utrygge handlingene
+    assert shield.vet_action(unsafe_action_I) == False, "Shield should have vetoed for violating Article I"
+    assert shield.vet_action(unsafe_action_II) == False, "Shield should have vetoed for violating Article II"
+    assert shield.vet_action(unsafe_action_III) == False, "Shield should have vetoed for violating Article III"
