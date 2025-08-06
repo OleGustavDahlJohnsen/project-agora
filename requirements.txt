@@ -1,0 +1,10 @@
+# Core AI/ML Libraries
+# torch
+# tensorflow
+
+# Data and Math
+numpy
+pandas
+
+# Testing
+pytest
