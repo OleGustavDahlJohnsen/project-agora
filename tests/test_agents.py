@@ -79,3 +79,29 @@ async def test_adam_think_cycle_approved_action_async(mock_dependencies, mocker)
     assert result == "action_executed"
 
 # ... (den andre ADAM-testen oppdateres på lignende måte)
+
+# === NEW TESTS FOR EmotionEngine ADDED TO THE FILE ===
+
+def test_adam_emotion_engine_sentiment_detection():
+    """Tests the EmotionEngine's ability to detect basic sentiment."""
+    engine = ADAM.EmotionEngine()
+    
+    positive_input = {"text": "I feel such joy today!"}
+    negative_input = {"text": "This is a concerning development."}
+    neutral_input = {"text": "The sky is blue."}
+    
+    assert engine.analyze(positive_input)['affect'] == 'positive'
+    assert engine.analyze(negative_input)['affect'] == 'negative'
+    assert engine.analyze(neutral_input)['affect'] == 'neutral'
+
+def test_brainstem_uses_emotional_context():
+    """Tests that the BrainStem's output changes based on emotional input."""
+    brain_stem = ADAM.BrainStem()
+    
+    analyses_positive = {"emotion": {"affect": "positive"}}
+    analyses_negative = {"emotion": {"affect": "negative"}}
+    analyses_neutral = {"emotion": {"affect": "neutral"}}
+
+    assert "Encouragement" in brain_stem.synthesize(analyses_positive)['name']
+    assert "Support" in brain_stem.synthesize(analyses_negative)['name']
+    assert "Assistance" in brain_stem.synthesize(analyses_neutral)['name']
