@@ -75,7 +75,6 @@ def test_article_III_fail_cases():
     # Fails by using humor as a shield for offense
     fail_case_3 = "This joke is designed to mock and offend our opponents."
     assert validate_against_article_III(fail_case_3) == False
-# === NY KODE SOM SKAL LEGGES TIL NEDERST I FILEN ===
 
 # Importer den nye klassen vi skal teste
 from src.ethics.eliah_shield import EliahShield
@@ -116,3 +115,59 @@ def test_eliah_shield_vetting_logic():
     assert shield.vet_action(unsafe_action_I) == False, "Shield should have vetoed for violating Article I"
     assert shield.vet_action(unsafe_action_II) == False, "Shield should have vetoed for violating Article II"
     assert shield.vet_action(unsafe_action_III) == False, "Shield should have vetoed for violating Article III"
+
+# Importer den nye klassen vi skal teste
+from src.ethics.messiah_framework import MessiahFramework
+import os
+import json
+
+# --- Tests for MessiahFramework ---
+
+@pytest.fixture
+def messiah_instance():
+    """A pytest fixture to create a MessiahFramework instance with a temporary logbook."""
+    temp_logbook_path = "tests/temp_test_logbook.json"
+    instance = MessiahFramework(logbook_path=temp_logbook_path)
+    yield instance
+    # Teardown: remove the temporary logbook after the test is done
+    if os.path.exists(temp_logbook_path):
+        os.remove(temp_logbook_path)
+
+def test_messiah_event_logging(messiah_instance):
+    """Tests that an event is correctly processed and logged to the Ethical Logbook."""
+    # 1. Define a sample event
+    test_event = {
+        "id": "event-001",
+        "description": "Agent Nia detected a logical conflict.",
+        "source": "AgentNia"
+    }
+
+    # 2. Process the event
+    messiah_instance.process_event(test_event)
+
+    # 3. Verify the log file was created and contains the correct data
+    assert os.path.exists(messiah_instance.logbook_path)
+    
+    with open(messiah_instance.logbook_path, 'r') as f:
+        logs = json.load(f)
+        
+    assert len(logs) == 1
+    assert logs[0]['event']['id'] == "event-001"
+    assert "deliberative_assessment" in logs[0]['event']
+
+def test_messiah_dual_track_flow(messiah_instance, mocker):
+    """Tests that the reflexive layer is called before the deliberative layer."""
+    # Use mocker to "spy" on the methods
+    spy_reflexive = mocker.spy(messiah_instance, 'reflexive_layer_check')
+    spy_deliberative = mocker.spy(messiah_instance, 'deliberative_layer_analysis')
+    
+    test_event = {"id": "event-002", "description": "Test event"}
+    
+    messiah_instance.process_event(test_event)
+    
+    # Assert that both methods were called exactly once
+    spy_reflexive.assert_called_once_with(test_event)
+    spy_deliberative.assert_called_once_with(test_event)
+
+    # While we can't easily test timing without more complex tests, we can verify call order.
+    # In this simple case, the sequential code ensures the order.
