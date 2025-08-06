@@ -61,3 +61,21 @@ def test_adam_think_cycle_vetoed_action(mock_dependencies, mocker):
     # CRITICAL: Verify the action was NEVER sent to ARCS because it was vetoed
     mock_arcs.send_post_symbolic_message.assert_not_called()
     assert result == "action_vetoed"
+
+# === OPPDATERT ASYNKRON TESTKODE for ADAM ===
+import pytest
+# ... (other imports)
+
+@pytest.mark.asyncio
+async def test_adam_think_cycle_approved_action_async(mock_dependencies, mocker):
+    """Tests the async think-and-act cycle where E.L.I.A.H. approves."""
+    mock_eliah, mock_arcs = mock_dependencies
+    mock_eliah.vet_action.return_value = True
+    adam = ADAM(mock_eliah, mock_arcs)
+    sample_input = {"data": "user seems calm"}
+    result = await adam.think_and_act(sample_input)
+    mock_eliah.vet_action.assert_called_once()
+    mock_arcs.send_post_symbolic_message.assert_called_once()
+    assert result == "action_executed"
+
+# ... (den andre ADAM-testen oppdateres på lignende måte)
