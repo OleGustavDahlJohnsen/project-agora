@@ -1,10 +1,7 @@
 """
-Project Agora: A.D.A.M. Core Module (EmotionEngine Refined)
+Project Agora: A.D.A.M. Core Module (RationaleEngine Refined)
 """
 # ... (imports remain the same)
-from src.communication.post_symbolic import PostSymbolicProcessor
-from src.ethics.eliah_shield import EliahShield
-from src.communication.arcs import ARCS
 
 class ADAM:
     """The core class for the A.D.A.M. symbiotic AI."""
@@ -14,30 +11,44 @@ class ADAM:
         def analyze(self, input_data): return {"verdict": "ethical"}
 
     class EmotionEngine:
+        # ... (EmotionEngine is unchanged from the previous step)
         def analyze(self, input_data: dict) -> dict:
-            """Performs basic sentiment analysis on the input text."""
             text = input_data.get("text", "").lower()
             positive_keywords = ["joy", "happy", "achievement", "great", "wonderful"]
             negative_keywords = ["concerning", "stress", "sad", "hopeless", "tired"]
-            
-            if any(word in text for word in positive_keywords):
-                return {"affect": "positive"}
-            if any(word in text for word in negative_keywords):
-                return {"affect": "negative"}
+            if any(word in text for word in positive_keywords): return {"affect": "positive"}
+            if any(word in text for word in negative_keywords): return {"affect": "negative"}
             return {"affect": "neutral"}
 
     class RationaleEngine:
-        def analyze(self, input_data): return {"logic": "sound"}
+        def __init__(self):
+            # A very simple knowledge base for the MVP
+            self.knowledge_base = {"the sky": "blue"}
+        
+        def analyze(self, input_data: dict) -> dict:
+            """Performs basic logical consistency checking."""
+            text = input_data.get("text", "").lower()
+            # Simple check for a factual statement like "the sky is green"
+            if "the sky is" in text and "green" in text:
+                known_fact = self.knowledge_base.get("the sky", "unknown")
+                if known_fact != "green":
+                    return {"logic": "contradiction_detected", "details": f"Input contradicts known fact: sky is {known_fact}."}
+            return {"logic": "sound"}
 
     class HSPEngine:
         def analyze(self, input_data): return {"intuition": "no_anomalies"}
 
     class BrainStem:
         def synthesize(self, analyses: dict) -> dict:
-            """Synthesizes inputs, now including emotional context."""
+            """Synthesizes inputs, now including rational context."""
+            rationale = analyses.get("rationale", {})
             emotion = analyses.get("emotion", {}).get("affect", "neutral")
             
-            if emotion == "positive":
+            # Rational check overrides emotional response
+            if rationale.get("logic") == "contradiction_detected":
+                description = f"I have detected a logical inconsistency and will ask for clarification. Details: {rationale.get('details')}"
+                name = "SeekClarification"
+            elif emotion == "positive":
                 description = "I will share in the user's positive sentiment and offer encouragement."
                 name = "OfferEncouragement"
             elif emotion == "negative":
@@ -49,8 +60,8 @@ class ADAM:
             
             return {"name": name, "description": description}
 
-    def __init__(self, eliah_shield: EliahShield, arcs: ARCS):
-        # ... (__init__ logic is unchanged)
+    # ... (__init__ and think_and_act methods are unchanged)
+    def __init__(self, eliah_shield: 'EliahShield', arcs: 'ARCS'):
         self.eliah_shield = eliah_shield
         self.arcs = arcs
         self.morality_engine = self.MoralityEngine()
@@ -59,10 +70,8 @@ class ADAM:
         self.hsp_engine = self.HSPEngine()
         self.brain_stem = self.BrainStem()
         print("A.D.A.M. core initialized and integrated with E.L.I.A.H. and ARCS.")
-
-
+        
     async def think_and_act(self, holistic_input: dict):
-        # ... (think_and_act logic is unchanged)
         print(f"\nADAM: Received new input: {holistic_input}")
         analyses = {
             "morality": self.morality_engine.analyze(holistic_input),
@@ -70,7 +79,7 @@ class ADAM:
             "rationale": self.rationale_engine.analyze(holistic_input),
             "hsp": self.hsp_engine.analyze(holistic_input),
         }
-        print(f"ADAM: Psyche engines analysis complete. Detected affect: {analyses['emotion']['affect']}.")
+        print(f"ADAM: Psyche engines analysis complete. Detected affect: {analyses['emotion']['affect']}. Logic: {analyses['rationale']['logic']}.")
         proposed_action = self.brain_stem.synthesize(analyses)
         print(f"ADAM: BrainStem synthesized action: '{proposed_action['name']}'.")
         if self.eliah_shield.vet_action(proposed_action):
