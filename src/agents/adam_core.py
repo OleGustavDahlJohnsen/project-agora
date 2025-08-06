@@ -78,3 +78,23 @@ class ADAM:
             # 5. If vetoed, the action is stopped.
             print(f"ADAM: Action VETOED by E.L.I.A.H. No action will be taken.")
             return "action_vetoed"
+# ... (imports remain the same)
+
+class ADAM:
+    # ... (__init__ and inner classes remain the same)
+
+    async def think_and_act(self, holistic_input: dict):
+        """The main async entry point for the A.D.A.M. cognitive loop."""
+        # ... (analysis logic is unchanged)
+        
+        proposed_action = self.brain_stem.synthesize(analyses)
+        
+        # The call to the shield remains synchronous for now
+        if self.eliah_shield.vet_action(proposed_action):
+            print(f"ADAM: Action approved by E.L.I.A.H. Executing via ARCS.")
+            # This call could also be made async in the future
+            self.arcs.send_post_symbolic_message(proposed_action)
+            return "action_executed"
+        else:
+            print(f"ADAM: Action VETOED by E.L.I.A.H. No action will be taken.")
+            return "action_vetoed"
