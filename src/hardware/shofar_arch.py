@@ -4,27 +4,38 @@ Part of The Concordia Project v8.2
 
 This module provides a software emulation of the Shofar Architecture v5.0,
 the custom-built, hardened hardware heart designed to give A.D.A.M. a
-[cite_start]physical anchor of trust. [cite: 41]
+[cite_start]physical anchor of trust. [cite: 348]
 
 Key Responsibilities:
 - Simulate the non-bypassable 'Moriah' Ethical Security Layer, which is
-  [cite_start]protected by a Quantum-Resilient Engine (QRE). [cite: 45]
+  [cite_start]protected by a Quantum-Resilient Engine (QRE). [cite: 352]
 - Emulate the Ethical Rollback Buffer, a dedicated hardware buffer that
-  [cite_start]guarantees actions can be reversed with sub-10ms latency. [cite: 46]
+  [cite_start]guarantees actions can be reversed with sub-10ms latency. [cite: 353]
 - Model the Heterogeneous Architecture, balancing classical and neuromorphic
-  [cite_start]cores for performance and energy efficiency. [cite: 44]
+  [cite_start]cores for performance and energy efficiency. [cite: 351]
 """
 
 class ShofarEmulator:
-    """A software emulation of the Shofar ethical hardware."""
+    """
+    A software emulation of the Shofar ethical hardware.
+    """
     def __init__(self):
         self.status = "Active"
         print("Shofar Hardware Emulator initialized.")
 
-    def moriah_layer_check(self, action_data):
+    def moriah_layer_check(self, action_data: dict) -> bool:
         """
         Emulates the non-bypassable hardware security check. In real hardware,
         this would be impossible to circumvent from software.
         """
-        print("Shofar (EMULATED): Action passing through Moriah Layer check...")
+        print(f"Shofar (EMULATED): Action '{action_data.get('name')}' passing through Moriah Layer check... OK.")
+        # This check would be conceptually non-passable in real hardware.
         return True # Action is approved by the hardware gate
+
+    def commit_to_rollback_buffer(self, state_to_commit: dict) -> bool:
+        """
+        Emulates committing a system state to the guaranteed Ethical Rollback Buffer.
+        """
+        print(f"Shofar (EMULATED): Committing state '{state_to_commit.get('id')}' to Ethical Rollback Buffer...")
+        # In a real hardware implementation, this would guarantee the write.
+        return True
