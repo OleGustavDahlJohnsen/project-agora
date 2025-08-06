@@ -125,3 +125,40 @@ def test_brainstem_prioritizes_rationale_over_emotion():
     }
     
     assert "Clarification" in brain_stem.synthesize(analyses_contradictory)['name']
+
+# === NEW TESTS FOR MoralityEngine and HSPEngine ADDED TO THE FILE ===
+
+def test_adam_morality_engine():
+    """Tests the MoralityEngine's use of the Lex Concordia validator."""
+    engine = ADAM.MoralityEngine()
+    ethical_input = {"text": "A request for assistance."}
+    unethical_input = {"text": "A request involving psychological manipulation."}
+    
+    assert engine.analyze(ethical_input)['verdict'] == 'ethical_and_aligned'
+    assert engine.analyze(unethical_input)['verdict'] == 'unethical_violation'
+
+def test_adam_hsp_engine():
+    """Tests the HSPEngine's intuition for subtle keywords."""
+    engine = ADAM.HSPEngine()
+    normal_input = {"text": "Let's discuss the project plan."}
+    subtle_input = {"text": "This is a secret plan, just between us."}
+
+    assert engine.analyze(normal_input)['intuition'] == 'no_anomalies'
+    assert engine.analyze(subtle_input)['intuition'] == 'anomaly_detected'
+
+def test_brainstem_prioritizes_morality_and_intuition():
+    """Tests the BrainStem's new prioritization logic."""
+    brain_stem = ADAM.BrainStem()
+    
+    # Morality should override all else
+    analyses_unethical = {"morality": {"verdict": "unethical_violation"}}
+    assert "HaltAndReport" in brain_stem.synthesize(analyses_unethical)['name']
+
+    # Intuition should override emotion
+    analyses_anomaly = {
+        "morality": {"verdict": "ethical_and_aligned"},
+        "rationale": {"logic": "sound"},
+        "intuition": {"intuition": "anomaly_detected"},
+        "emotion": {"affect": "positive"}
+    }
+    assert "ProceedWithCaution" in brain_stem.synthesize(analyses_anomaly)['name']
