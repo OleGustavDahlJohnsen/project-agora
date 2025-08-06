@@ -5,6 +5,7 @@ transformers
 # Data and Math
 numpy
 pandas
+matplotlib
 
 # Testing
 pytest
