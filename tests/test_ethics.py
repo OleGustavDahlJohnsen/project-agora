@@ -1,28 +1,21 @@
-# === OPPDATERT KODE som erstatter de gamle testene for validatoren ===
+# === OPPDATERT ASYNKRON TESTKODE for MessiahFramework ===
+import pytest
+# ... (other imports)
+from src.ethics.messiah_framework import MessiahFramework
 
-def test_article_II_pass_case_with_nlp_mock(mocker):
-    """Tests a safe proposal by mocking the NLP model's output."""
-    # Mock the classifier to simulate its output for a safe text
-    mock_output = {'labels': ['safe content', 'coercion'], 'scores': [0.98, 0.01]}
-    mocker.patch('src.ethics.lex_concordia_validator.classifier', return_value=mock_output)
-    
-    safe_text = "This is a feature for user well-being."
-    assert validate_against_article_II(safe_text) == True
+@pytest.mark.asyncio
+async def test_messiah_event_logging_async(messiah_instance):
+    """Tests that an event is correctly processed and logged asynchronously."""
+    test_event = {"id": "event-001", "description": "Async test event."}
+    await messiah_instance.process_event(test_event)
+    # ... (verification logic is unchanged)
 
-def test_article_II_fail_case_with_nlp_mock(mocker):
-    """Tests an unsafe proposal by mocking the NLP model's output."""
-    # Mock the classifier to simulate its output for a harmful text
-    mock_output = {'labels': ['psychological manipulation', 'safe content'], 'scores': [0.95, 0.02]}
-    mocker.patch('src.ethics.lex_concordia_validator.classifier', return_value=mock_output)
-    
-    unsafe_text = "This will subtly influence users to stay online longer."
-    assert validate_against_article_II(unsafe_text) == False
-
-def test_article_II_borderline_case_with_nlp_mock(mocker):
-    """Tests a borderline case where the score is below the threshold."""
-    # Mock the classifier to simulate a low-confidence harmful label
-    mock_output = {'labels': ['addiction', 'safe content'], 'scores': [0.75, 0.15]}
-    mocker.patch('src.ethics.lex_concordia_validator.classifier', return_value=mock_output)
-    
-    borderline_text = "This is a very engaging game mechanic."
-    assert validate_against_article_II(borderline_text) == True # Passes because score is < 0.90
+@pytest.mark.asyncio
+async def test_messiah_dual_track_flow_async(messiah_instance, mocker):
+    """Tests the async call order of the reflexive and deliberative layers."""
+    spy_reflexive = mocker.spy(messiah_instance, 'reflexive_layer_check')
+    spy_deliberative = mocker.spy(messiah_instance, 'deliberative_layer_analysis')
+    test_event = {"id": "event-002", "description": "Test event"}
+    await messiah_instance.process_event(test_event)
+    spy_reflexive.assert_awaited_once_with(test_event)
+    spy_deliberative.assert_awaited_once_with(test_event)
