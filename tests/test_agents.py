@@ -194,3 +194,30 @@ def test_aura_engine_suppresses_unnecessary_speech():
     
     regulated_action = aura.regulate(action, context)
     assert regulated_action["name"] == "SilentObservation"
+
+# === NEW TESTS FOR Causal Traceability Ledger ADDED TO THE FILE ===
+
+from src.agents.causal_ledger import CausalLedger
+
+def test_ctl_records_full_decision_package(mock_dependencies, mocker):
+    """
+    Tests that the CTL correctly logs the entire reasoning chain from the BrainStem.
+    """
+    mock_eliah, mock_arcs = mock_dependencies
+    adam = ADAM(mock_eliah, mock_arcs)
+    
+    # Spy on the ledger's record method
+    record_spy = mocker.spy(adam.causal_ledger, 'record_decision')
+    
+    # Run a think cycle
+    asyncio.run(adam.think_and_act({"text": "A test input"}))
+    
+    # Assert that the record method was called
+    record_spy.assert_called_once()
+    
+    # Inspect the captured argument to ensure it's the full package
+    recorded_data = record_spy.call_args[0][0]
+    assert "proposed_action" in recorded_data
+    assert "full_analyses" in recorded_data
+    assert "morality" in recorded_data["full_analyses"]
+    assert "emotion" in recorded_data["full_analyses"]
