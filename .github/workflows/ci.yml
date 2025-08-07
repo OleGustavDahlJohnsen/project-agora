@@ -1,0 +1,44 @@
+# .github/workflows/ci.yml
+
+name: Project Agora CI
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v3
+
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.11'
+
+    - name: Install dependencies
+      run: |
+        python -m venv venv
+        source venv/bin/activate
+        pip install --upgrade pip
+        pip install -r requirements.txt
+
+    - name: Run Pytest
+      run: |
+        source venv/bin/activate
+        pytest -q
+
+    - name: Run Short A/B Simulation (5 minutes)
+      run: |
+        source venv/bin/activate
+        echo "--- RUNNING SHORT AURA A/B SIMULATION (CI) ---"
+        # Run with AURA enabled for a short duration
+        python src/app/main.py --simulation-ticks 5 --aura-enabled true --output-file reports/ci_sim_on.csv --no-plots
+        # Run with AURA disabled for a short duration
+        python src/app/main.py --simulation-ticks 5 --aura-enabled false --output-file reports/ci_sim_off.csv --no-plots
+        echo "--- SHORT SIMULATION COMPLETE ---"
