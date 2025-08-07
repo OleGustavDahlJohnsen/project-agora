@@ -406,3 +406,35 @@ class ADAM:
         # The rest of the think_and_act loop is unchanged, it just uses
         # the UCB's output as its starting point.
         # ...
+
+# ... (other imports)
+from src.agents.aura_engine import AuraEngine # Import the new engine
+
+class ADAM:
+    # ... (Morality, Emotion, Rationale, HSPEngine are unchanged)
+
+    def __init__(self, eliah_shield: EliahShield, arcs: ARCS, ucb: 'UnifiedContextBuffer', sensor_mesh: 'SensorMesh'):
+        # ... (other initializations)
+        self.aura_engine = AuraEngine() # Initialize A.U.R.A.
+        # ...
+        print("A.D.A.M. core (with A.U.R.A.) initialized.")
+        
+    async def think_and_act(self):
+        holistic_input = self.ucb.get_latest_context()
+        # ... (analysis logic is unchanged)
+        
+        # 1. BrainStem synthesizes the INITIAL proposed action
+        initial_action = self.brain_stem.synthesize(self.analyses)
+        print(f"ADAM: BrainStem synthesized initial action: '{initial_action['name']}'.")
+
+        # 2. A.U.R.A. regulates the action, potentially overriding it with silence
+        regulated_action = self.aura_engine.regulate(initial_action, self.analyses['emotion'])
+        
+        # 3. The final, regulated action is sent to the ethical shield
+        final_action = regulated_action
+        self.decision_package = {"proposed_action": final_action, "full_analyses": self.analyses} # Store for CTL
+        print(f"ADAM: Final action after A.U.R.A. regulation: '{final_action['name']}'.")
+
+        if self.eliah_shield.vet_action(final_action):
+            # ... (execution logic is unchanged)
+            pass
