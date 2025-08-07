@@ -518,3 +518,9 @@ class ADAM:
             # Step 4: The action is enacted
             self.arcs.send_post_symbolic_message(final_action)
         # ...
+
+# ... (inside ADAM class)
+    def __init__(self, ..., ucb: UnifiedContextBuffer, ctl: CausalLedger, aura: AuraEngine):
+        self.ucb = ucb # Used for context
+        self.ctl = ctl # Used for logging the 'why'
+        self.aura = aura # Used for regulating speech
