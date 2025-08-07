@@ -66,3 +66,33 @@ async def main():
         await asyncio.sleep(0.2)
 
     # ... (rest of the script is unchanged)
+
+"""
+Project Agora: Main Application Entry Point & Orchestrator (THVI Integrated)
+"""
+# ... (all other imports remain the same)
+from src.visualization.trust_horizon import TrustHorizonDashboard
+
+async def main():
+    """The main async function to orchestrate the application."""
+    print("--- PROJECT AGORA SYSTEM BOOT (VISUAL SIMULATION V2) ---")
+    
+    # 1. Initialize all modules
+    # ... (initialization of other modules is unchanged)
+    simulation = Simulation()
+    dashboard = Dashboard()
+    trust_dashboard = TrustHorizonDashboard() # Initialize the THVI dashboard
+    
+    print("\n--- All modules initialized. Starting persistent simulation. ---")
+    
+    # ... (simulation loop logic is mostly unchanged)
+    for i in range(simulation_ticks):
+        # ... (core logic of the loop is unchanged)
+        
+        # UPDATE: Update both dashboards with the new world state
+        dashboard.update(simulation.world_state)
+        trust_dashboard.update(simulation.world_state['day'], adam.causal_ledger.ledger)
+        
+        await asyncio.sleep(0.2)
+
+    # ... (rest of the script is unchanged)
