@@ -221,3 +221,15 @@ def test_ctl_records_full_decision_package(mock_dependencies, mocker):
     assert "full_analyses" in recorded_data
     assert "morality" in recorded_data["full_analyses"]
     assert "emotion" in recorded_data["full_analyses"]
+
+# === NEW TEST FOR REFINED EmotionEngine ADDED TO THE FILE ===
+
+def test_emotion_engine_uses_affective_context():
+    """Tests that the EmotionEngine's output is modulated by the SMSL context."""
+    engine = ADAM.EmotionEngine()
+    
+    # Neutral text in a chaotic environment should produce a stressed affect
+    neutral_input = {"text": "Please provide the report."}
+    chaotic_context = "chaotic_and_public"
+    
+    assert engine.analyze(neutral_input, chaotic_context)['affect'] == 'heightened_stress'
