@@ -1,12 +1,10 @@
 """
 Project Agora: Main Application Entry Point & Orchestrator (Final B.O.D.Y. Sim)
 Part of The Concordia Project v8.2
-
 This final version orchestrates the full B.O.D.Y. architecture and runs the
 persistent, long-duration simulation to observe emergent behavior and generate
 verifiable results.
 """
-
 import asyncio
 import csv
 from src.agents.adam_core import ADAM
@@ -19,6 +17,8 @@ from src.sensors.sensor_mesh import SensorMesh
 from src.simulations.virtual_life import Simulation
 from src.visualization.dashboard import Dashboard
 from src.visualization.trust_horizon import TrustHorizonDashboard
+from src.body.aura_engine import AuraEngine  # New import
+from src.body.body_framework import BodyFramework  # New import
 
 async def main():
     """The main async function to orchestrate the long-duration simulation."""
@@ -33,8 +33,20 @@ async def main():
     sensor_mesh = SensorMesh()
     post_symbolic_processor = PostSymbolicProcessor(sensor_mesh)
     
+    # Initialize A.U.R.A. Engine
+    aura = AuraEngine(config={
+        "aura_thresholds": {
+            "hrv_threshold": 40,
+            "confidence_threshold": 0.4,
+            "max_silence_duration": 30
+        }
+    })
+    
+    # Initialize B.O.D.Y. Framework
+    body = BodyFramework()
+    
     # Initialize ADAM with all its new dependencies
-    adam = ADAM(eliah_shield, arcs, ucb, sensor_mesh)
+    adam = ADAM(eliah_shield, arcs, ucb, sensor_mesh, aura)
     
     simulation = Simulation()
     dashboard = Dashboard()
@@ -46,7 +58,6 @@ async def main():
     simulation_ticks = 365
     simulation_history = []
     next_event = simulation._generate_next_event()
-
     for i in range(simulation_ticks):
         print(f"\n--- SIMULATION DAY {i+1} ---")
         
@@ -57,26 +68,36 @@ async def main():
         ])
         ucb.add_perception(fused_perception)
         
-        # b. A.D.A.M.'s cognitive loop processes the latest context from the UCB
-        await adam.think_and_act()
+        # b. A.D.A.M.'s cognitive loop, now with A.U.R.A.
+        final_action = await adam.think_and_act()
         
-        # c. The simulation world evolves based on A.D.A.M.'s action
-        last_action = adam.decision_package['proposed_action'] if adam.decision_package else None
-        next_event = simulation.run_tick(last_action)
+        # c. Apply B.O.D.Y. Framework to regulate action
+        regulated_action = body.bind_and_execute(final_action, ucb.get_context())
+        final_action = regulated_action
         
-        # d. Log the world state for final analysis
-        simulation_history.append(simulation.world_state.copy())
+        # d. The simulation world evolves based on the regulated action
+        next_event = simulation.run_tick(final_action)
         
-        # e. Update the live dashboards
+        # e. Log the world state for final analysis
+        log_entry = simulation.world_state.copy()
+        log_entry.update({
+            "silent_decision": final_action.get("name") == "SacredSilence",
+            "hrv": ucb.get_context().get("hrv"),
+            "confidence": final_action.get("confidence", 0),
+            "aura_latency_ms": adam.aura_latency_for_log if hasattr(adam, "aura_latency_for_log") else 0
+        })
+        simulation_history.append(log_entry)
+        
+        # f. Update the live dashboards
         dashboard.update(simulation.world_state)
         trust_dashboard.update(simulation.world_state['day'], adam.causal_ledger.ledger)
         
-        await asyncio.sleep(0.01) # Minimal sleep for speed
-
+        await asyncio.sleep(0.01)  # Minimal sleep for speed
+    
     print("\n--- SIMULATION COMPLETE ---")
     
     # 3. Save final results to a CSV file for analysis
-    output_file = "simulation_results.csv"
+    output_file = "data/simulation_results.csv"
     with open(output_file, 'w', newline='') as f:
         writer = csv.DictWriter(f, fieldnames=simulation_history[0].keys())
         writer.writeheader()
@@ -84,52 +105,5 @@ async def main():
     print(f"Results for {simulation_ticks} days saved to {output_file}.")
     input("Press Enter to close the plots and exit.")
 
-
 if __name__ == "__main__":
     asyncio.run(main())
-
-"""
-Project Agora: Main Application Entry Point & Orchestrator (B.O.D.Y. Alpha)
-"""
-# ... (imports)
-from src.aura.aura_engine import AuraEngine # New import
-
-# ... (inside async def main())
-    # 1. Initialize all modules
-    print("Initializing core modules...")
-    # ... (other initializations)
-    
-    # NEW: Initialize A.U.R.A. Engine
-    aura = AuraEngine(config={
-        "aura_thresholds": {
-            "hrv_threshold": 40,
-            "confidence_threshold": 0.4
-        }
-    })
-    
-    # Inject dependencies into ADAM
-    adam = ADAM(eliah_shield, arcs, ucb, sensor_mesh, aura) # Pass aura instance
-    
-    # ... (simulation loop)
-    for i in range(simulation_ticks):
-        # ...
-        # b. A.D.A.M. cognitive loop, now with A.U.R.A.
-        final_action = await adam.think_and_act()
-        # ...
-        # e. Log metrics, now including A.U.R.A. data
-        log_entry = simulation.world_state.copy()
-        log_entry.update({
-            "silent_decision": final_action.get("name") == "SacredSilence",
-            "hrv": adam.affective_context_for_log.get("hrv"),
-            "confidence": adam.proposal_for_log.get("confidence"),
-            "aura_latency_ms": adam.aura_latency_for_log
-        })
-        simulation_history.append(log_entry)
-        # ...
-
-from body.body_framework import BodyFramework
-
-# I simuleringsloopen, etter BrainStem genererer action:
-body = BodyFramework()
-regulated_action = body.bind_and_execute(proposed_action, affective_context)
-# Fortsett med EliahShield-veto
