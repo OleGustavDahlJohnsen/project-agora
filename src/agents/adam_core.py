@@ -150,3 +150,30 @@ class ADAM:
         if self.eliah_shield.vet_action(final_action):
             # ... (execution logic is unchanged)
             pass
+
+# ... (other imports)
+from src.agents.temporal_memory import TemporalMemory # Import the new engine
+
+class ADAM:
+    # ... (Psyche Engines are unchanged)
+
+    def __init__(self, eliah_shield: EliahShield, arcs: ARCS):
+        # ... (other initializations)
+        self.temporal_memory = TemporalMemory() # Initialize TMW-E
+        # ...
+        
+    async def think_and_act(self, holistic_input: dict):
+        # ... (analysis logic is unchanged)
+        self.analyses = { ... }
+        
+        # NEW STEP: Consult long-term memory before synthesizing an action
+        ledger_snapshot = self.causal_ledger.ledger
+        wisdom_summary = self.temporal_memory.analyze_ledger(ledger_snapshot)
+        self.analyses['long_term_memory'] = wisdom_summary # Add wisdom to the current context
+        
+        print(f"ADAM (TMW-E): Long-term pattern recognized: {wisdom_summary.get('trust_pattern')}")
+
+        # BrainStem now synthesizes an action with the benefit of long-term wisdom
+        decision_package = self.brain_stem.synthesize(self.analyses)
+        
+        # ... (rest of the think_and_act loop is unchanged)
