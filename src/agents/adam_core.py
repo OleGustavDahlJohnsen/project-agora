@@ -470,3 +470,35 @@ class ADAM:
         if self.eliah_shield.vet_action(final_action):
             # ... (execution logic is unchanged)
             pass
+
+# ... (imports)
+from src.agents.aura_engine import AuraEngine
+
+class ADAM:
+    # ... (Psyche Engines are the same)
+
+    def __init__(self, eliah_shield: EliahShield, arcs: ARCS, ucb: 'UnifiedContextBuffer', sensor_mesh: 'SensorMesh', aura: AuraEngine):
+        # ... (other initializations)
+        self.aura = aura # Store A.U.R.A. instance
+        self.proposal_for_log = {} # For logging
+        self.affective_context_for_log = {} # For logging
+        self.aura_latency_for_log = 0 # For logging
+        
+    async def think_and_act(self) -> dict:
+        # ... (gets context from UCB)
+        
+        # 1. BrainStem synthesizes an initial proposal with confidence
+        # (Assuming BrainStem now returns a dict with action and confidence)
+        self.proposal_for_log = self.brain_stem.synthesize(self.analyses)
+        
+        # 2. A.U.R.A. regulates the utterance
+        # (Assuming UCB provides affective state)
+        self.affective_context_for_log = self.ucb.get_affective_state() 
+        final_action = self.aura.regulate(self.proposal_for_log, self.affective_context_for_log)
+        self.aura_latency_for_log = self.aura.last_latency_ms
+        
+        # 3. Final action is vetted and potentially enacted
+        if self.eliah_shield.vet_action(final_action):
+            # ... enact action ...
+        
+        return final_action
