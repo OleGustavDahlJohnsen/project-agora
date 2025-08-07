@@ -502,3 +502,19 @@ class ADAM:
             # ... enact action ...
         
         return final_action
+
+# ... (inside ADAM class)
+    async def think_and_act(self):
+        # ...
+        # Step 1: BrainStem synthesizes a proposal
+        proposal = self.brain_stem.synthesize(self.analyses)
+        
+        # Step 2: A.U.R.A. regulates the utterance
+        affective_ctx = self.ucb.get_affective_state()
+        final_action = self.aura.regulate(proposal, affective_ctx)
+        
+        # Step 3: The final action is vetted by E.L.I.A.H.
+        if self.eliah_shield.vet_action(final_action):
+            # Step 4: The action is enacted
+            self.arcs.send_post_symbolic_message(final_action)
+        # ...
