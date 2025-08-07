@@ -36,3 +36,28 @@ def test_dashboard_data_handling():
     assert len(dashboard.day_history) == 2
     assert dashboard.day_history[1] == 2
     assert dashboard.wellbeing_history[1] == 7.8
+
+# === NEW TESTS FOR THVI ADDED TO THE FILE ===
+
+from src.visualization.trust_horizon import TrustHorizonDashboard
+
+def test_thvi_trust_score_logic():
+    """
+    Tests that the TrustHorizonDashboard correctly calculates the trust score
+    based on a series of mock ledger entries.
+    """
+    thvi_dash = TrustHorizonDashboard()
+    
+    # Initial state
+    assert thvi_dash.trust_score == 5.0
+    
+    # A supportive action should increase the score
+    ledger_1 = [{"decision_package": {"proposed_action": {"name": "OfferSupport"}}}]
+    thvi_dash._calculate_trust_score(ledger_1)
+    assert thvi_dash.trust_score > 5.0
+
+    # A vetoed action should decrease the score
+    initial_score = thvi_dash.trust_score
+    ledger_2 = ledger_1 + [{"decision_package": {"proposed_action": {"name": "HaltAndReport"}}}]
+    thvi_dash._calculate_trust_score(ledger_2)
+    assert thvi_dash.trust_score < initial_score
