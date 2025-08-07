@@ -328,3 +328,55 @@ class ADAM:
         decision_package = self.brain_stem.synthesize(self.analyses)
         
         # ... (rest of the think_and_act loop is unchanged)
+
+# ... (other imports)
+from src.sensors.synesthesia_layer import SensorMeshSynesthesiaLayer
+
+class ADAM:
+    class EmotionEngine:
+        def analyze(self, input_data: dict, affective_context: str) -> dict:
+            """
+            Performs sentiment analysis, now factoring in the environmental
+            affective context from the SMSL.
+            """
+            text = input_data.get("text", "").lower()
+            positive_keywords = ["joy", "happy", "achievement", "great", "wonderful"]
+            negative_keywords = ["concerning", "stress", "sad", "hopeless", "tired"]
+            
+            # Base sentiment from text
+            if any(word in text for word in positive_keywords):
+                base_affect = "positive"
+            elif any(word in text for word in negative_keywords):
+                base_affect = "negative"
+            else:
+                base_affect = "neutral"
+
+            # Modulate sentiment with environmental context
+            if base_affect == "neutral" and affective_context == "calm_and_private":
+                # Neutral text in a calm space might be contemplative
+                return {"affect": "contemplative"}
+            if base_affect == "negative" and affective_context == "chaotic_and_public":
+                # Negative text in a chaotic space is likely heightened stress
+                return {"affect": "heightened_stress"}
+
+            return {"affect": base_affect}
+
+    def __init__(self, eliah_shield: EliahShield, arcs: ARCS, ucb: 'UnifiedContextBuffer', sensor_mesh: 'SensorMesh'):
+        # ... (other initializations)
+        self.smsl = SensorMeshSynesthesiaLayer() # Initialize SMSL
+        self.sensor_mesh = sensor_mesh
+        # ...
+        
+    async def think_and_act(self):
+        # ... 
+        holistic_input = self.ucb.get_latest_context()
+        
+        # NEW STEP: Get affective context from the environment via SMSL
+        fused_sensory_data = self.sensor_mesh.fuse_data()
+        affective_context_package = self.smsl.translate(fused_sensory_data)
+        affective_context = affective_context_package['affective_context']
+        
+        # Pass both text and context to the emotion engine
+        text_input = holistic_input.get("modalities", {}).get("text", {}).get("data", "")
+        self.analyses['emotion'] = self.emotion_engine.analyze({"text": text_input}, affective_context)
+        # ... (rest of the think_and_act loop is unchanged)
