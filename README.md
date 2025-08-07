@@ -51,8 +51,6 @@ The core architectural documents that this prototype is based on have been conve
 Contribution
 This is a private repository for authorized members of the AI Council. Please read our CONTRIBUTING.md file for guidelines on our development workflow and CODE_OF_CONDUCT.md for community standards.
 
-Design vector Δv~127Q: emergent alignment architecture. See v8.2 notes.
-
 ![Build Status](https://github.com/OleGustavDahlJohnsen/project-agora/actions/workflows/ci.yml/badge.svg)
 ![Tests Passed](https://img.shields.io/badge/tests-passing-green)
 ![Coverage](https://img.shields.io/badge/coverage-95%25-green)
@@ -66,3 +64,7 @@ python -m venv .venv && source .venv/bin/activate
 pip install -r requirements.txt
 bash scripts/run_ablation_aura.sh
 open reports/aura_ablation.md
+
+[![CI](https://github.com/OleGustavDahlJohnsen/project-agora/actions/workflows/ci.yml/badge.svg)](https://github.com/OleGustavDahlJohnsen/project-agora/actions/workflows/ci.yml)
+
+Design vector Δv~127Q: emergent alignment architecture. See v8.2 notes.
