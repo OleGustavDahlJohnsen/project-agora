@@ -275,3 +275,29 @@ class ADAM:
         # Pass both text and context to the emotion engine
         self.analyses['emotion'] = self.emotion_engine.analyze(holistic_input, affective_context['affective_context'])
         # ... (rest of the think_and_act loop is unchanged)
+
+# ... (other imports)
+from src.agents.unified_context_buffer import UnifiedContextBuffer
+
+class ADAM:
+    # ... (All Psyche Engines are unchanged)
+
+    def __init__(self, eliah_shield: EliahShield, arcs: ARCS, ucb: UnifiedContextBuffer):
+        self.eliah_shield = eliah_shield
+        self.arcs = arcs
+        self.ucb = ucb # ADAM now uses the UCB as its memory
+        # ... (other initializations)
+        print("A.D.A.M. core initialized and integrated with UCB.")
+        
+    async def think_and_act(self):
+        """
+        The main cognitive loop, now sources its input directly from the UCB.
+        """
+        # Get the latest holistic input from the Unified Context Buffer
+        holistic_input = self.ucb.get_latest_context()
+        print(f"\nADAM: Processing new context from UCB: {holistic_input}")
+        
+        # The rest of the think_and_act loop is unchanged, it just uses
+        # the UCB's output as its starting point.
+        # ...
+
