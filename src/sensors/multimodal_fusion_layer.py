@@ -1,28 +1,36 @@
 """
 Project Agora: Multimodal Fusion Layer (MFL)
+Part of The Concordia Project v8.2 (B.O.D.Y. Architecture)
+
+This module gathers and synchronizes inputs from text, audio, image, and
+other sensors into a single, unified data stream.
 """
-# ... (other imports)
-from .modal_confidence_scaler import ModalConfidenceScaler
+from typing import Dict, Any, List
+from datetime import datetime
 
 class MultimodalFusionLayer:
     """
-    Fuses and scales data from multiple modalities into a coherent package.
+    Fuses timestamped data from multiple modalities into a coherent package.
     """
     def __init__(self):
-        self.scaler = ModalConfidenceScaler() # Initialize the scaler
         print("Multimodal Fusion Layer (MFL) initialized.")
 
-    def fuse_and_scale_inputs(self, inputs: List[Dict[str, Any]]) -> Dict[str, Any]:
+    def fuse_inputs(self, inputs: List[Dict[str, Any]]) -> Dict[str, Any]:
         """
-        Fuses inputs and then immediately scales their confidence scores.
+        Takes a list of timestamped inputs and fuses them into a single
+        holistic perception object for the Unified Context Buffer.
         """
-        # 1. Fuse the inputs
-        fused_perception = { ... } # Unchanged fusion logic
+        # For the MVP, this is a simple merge. In production, this would involve
+        # complex time-series alignment and cross-modal attention.
+        fused_perception = {
+            "timestamp_utc": datetime.utcnow().isoformat(),
+            "modalities": {}
+        }
         for an_input in inputs:
-            # ...
+            modality = an_input.get("modality")
+            data = an_input.get("data")
+            if modality and data:
+                fused_perception["modalities"][modality] = data
         
-        # 2. Scale the fused inputs
-        scaled_perception = self.scaler.scale(fused_perception)
-        
-        print(f"MFL: Fused and scaled inputs.")
-        return scaled_perception
+        print(f"MFL: Fused inputs from modalities: {list(fused_perception['modalities'].keys())}")
+        return fused_perception
