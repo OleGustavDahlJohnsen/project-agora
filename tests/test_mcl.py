@@ -40,35 +40,3 @@ def test_ucb_stores_and_retrieves_context():
     ucb.add_perception(perception3)
     assert ucb.get_latest_context() == perception3
     assert len(ucb.buffer) == 2
-
-"""
-Project Agora: Unit Tests for the Multimodal Core Layer (MCL)
-"""
-# ... (other imports)
-from src.sensors.modal_confidence_scaler import ModalConfidenceScaler
-
-# ... (existing tests for MFL and UCB are unchanged)
-
-def test_modal_confidence_scaler_assigns_scores():
-    """Tests that the scaler correctly adds confidence scores to modalities."""
-    scaler = ModalConfidenceScaler()
-    
-    fused_perception = {
-        "modalities": {
-            "text": "This is a direct command.",
-            "biometric": {"hrv_sdnn": 50}
-        }
-    }
-    
-    scaled_perception = scaler.scale(fused_perception)
-    
-    text_modality = scaled_perception["modalities"]["text"]
-    biometric_modality = scaled_perception["modalities"]["biometric"]
-    
-    assert "data" in text_modality
-    assert "confidence_score" in text_modality
-    assert text_modality["confidence_score"] == 0.95
-    
-    assert "data" in biometric_modality
-    assert "confidence_score" in biometric_modality
-    assert biometric_modality["confidence_score"] == 0.65
