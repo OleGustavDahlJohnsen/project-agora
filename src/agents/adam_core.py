@@ -106,36 +106,47 @@ class ADAM:
             print(f"ADAM: Action VETOED by E.L.I.A.H. No action will be taken.")
             return "action_vetoed"
 # ... (other imports)
-from src.agents.aura_engine import AuraEngine # Import the new engine
+from src.agents.causal_ledger import CausalLedger # Import the new ledger
 
 class ADAM:
-    # ... (Morality, Emotion, Rationale, HSPEngine are unchanged)
+    # ... (All Psyche Engines are unchanged)
 
     class BrainStem:
         def synthesize(self, analyses: dict) -> dict:
-            # ... (synthesis logic is unchanged)
-            # Returns the initial proposed action
+            # ... (synthesis logic is unchanged to determine the action)
+            
+            # NEW: Package the full reasoning chain along with the action
+            proposed_action = self._determine_action(analyses) # Assumes the logic is in a helper
+            
+            traceable_decision = {
+                "proposed_action": proposed_action,
+                "full_analyses": analyses # The complete set of "votes"
+            }
+            return traceable_decision
+
+        def _determine_action(self, analyses: dict) -> dict:
+            # This helper contains the prioritization logic from our last step
+            # ... (logic to decide between HaltAndReport, SeekClarification, etc.)
             pass
 
     def __init__(self, eliah_shield: EliahShield, arcs: ARCS):
         # ... (other initializations)
-        self.aura_engine = AuraEngine() # Initialize A.U.R.A.
-        print("A.D.A.M. core (Psyche Complete) initialized.")
+        self.causal_ledger = CausalLedger() # Initialize the CTL
+        # ...
         
     async def think_and_act(self, holistic_input: dict):
         # ... (analysis logic is unchanged)
         
-        # 1. BrainStem synthesizes the INITIAL proposed action
-        initial_action = self.brain_stem.synthesize(self.analyses)
-        print(f"ADAM: BrainStem synthesized initial action: '{initial_action['name']}'.")
-
-        # 2. A.U.R.A. regulates the action, potentially overriding it with silence
-        regulated_action = self.aura_engine.regulate(initial_action, self.analyses['emotion'])
+        # 1. BrainStem synthesizes the full, traceable decision package
+        decision_package = self.brain_stem.synthesize(self.analyses)
+        final_action = decision_package['proposed_action']
         
-        # 3. The final, regulated action is sent to the ethical shield
-        final_action = regulated_action
-        print(f"ADAM: Final action after A.U.R.A. regulation: '{final_action['name']}'.")
+        print(f"ADAM: BrainStem synthesized action: '{final_action['name']}'.")
+        
+        # 2. Record the ENTIRE decision package to the CTL BEFORE vetting
+        self.causal_ledger.record_decision(decision_package)
 
+        # 3. The final action is sent to the ethical shield
         if self.eliah_shield.vet_action(final_action):
             # ... (execution logic is unchanged)
             pass
