@@ -126,3 +126,10 @@ from src.aura.aura_engine import AuraEngine # New import
         })
         simulation_history.append(log_entry)
         # ...
+
+from body.body_framework import BodyFramework
+
+# I simuleringsloopen, etter BrainStem genererer action:
+body = BodyFramework()
+regulated_action = body.bind_and_execute(proposed_action, affective_context)
+# Fortsett med EliahShield-veto
