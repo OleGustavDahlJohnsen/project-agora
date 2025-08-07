@@ -1,98 +1,52 @@
 """
-Project Agora: Main Application Entry Point & Orchestrator (Long-Duration Sim)
+Project Agora: Main Application Entry Point & Orchestrator (THVI Integrated)
 """
 import asyncio
-import random
-import csv
-# ... (all other imports remain the same)
 from src.simulations.virtual_life import Simulation
+from src.visualization.dashboard import Dashboard
+from src.visualization.trust_horizon import TrustHorizonDashboard
 from src.agents.adam_core import ADAM
+from src.ethics.eliah_shield import EliahShield
+from src.communication.arcs import ARCS
+from src.communication.post_symbolic import PostSymbolicProcessor
+from src.sensors.sensor_mesh import SensorMesh
+from src.agents.unified_context_buffer import UnifiedContextBuffer
+from src.sensors.multimodal_fusion_layer import MultimodalFusionLayer
 
 async def main():
-    """The main async function to orchestrate and run the long-duration simulation."""
+    """The main async function to orchestrate the application."""
+    print("--- PROJECT AGORA SYSTEM BOOT (VISUAL SIMULATION V2) ---")
+    
     # 1. Initialize all modules
-    # ... (initialization is unchanged)
+    eliah_shield = EliahShield()
+    arcs = ARCS()
+    ucb = UnifiedContextBuffer()
+    mfl = MultimodalFusionLayer()
+    sensor_mesh = SensorMesh()
+    post_symbolic_processor = PostSymbolicProcessor(sensor_mesh)
+    adam = ADAM(eliah_shield, arcs, ucb, sensor_mesh)
+    simulation = Simulation()
+    dashboard = Dashboard()
+    trust_dashboard = TrustHorizonDashboard() # Initialize the THVI dashboard
     
-    # 2. Setup simulation parameters and logging
-    simulation_ticks = 365
-    simulation_history = []
+    print("\n--- All modules initialized. Starting persistent simulation. ---")
     
-    # ... (simulation loop is largely the same, but now logs history)
+    # ... (simulation loop logic is mostly unchanged)
+    simulation_ticks = 50
+    last_action = None
+    next_event = simulation._generate_next_event()
+
     for i in range(simulation_ticks):
-        # ... (core loop logic)
-        next_event = simulation.run_tick(adam.brain_stem.synthesize(adam.analyses) if adam_action_status == "action_executed" else None)
-        simulation_history.append(simulation.world_state.copy()) # Log the state
-        await asyncio.sleep(0.01) # Sleep for a very short time in a long sim
+        # ... (core logic of the loop is unchanged)
+        
+        # UPDATE: Update both dashboards with the new world state
+        dashboard.update(simulation.world_state)
+        trust_dashboard.update(simulation.world_state['day'], adam.causal_ledger.ledger)
+        
+        await asyncio.sleep(0.2)
 
     print("\n--- SIMULATION COMPLETE ---")
-    
-    # 3. Save results to a CSV file for analysis
-    output_file = "simulation_results.csv"
-    with open(output_file, 'w', newline='') as f:
-        writer = csv.DictWriter(f, fieldnames=simulation_history[0].keys())
-        writer.writeheader()
-        writer.writerows(simulation_history)
-    print(f"Results for {simulation_ticks} days saved to {output_file}.")
+    input("Press Enter to close the plot and exit.")
 
 if __name__ == "__main__":
     asyncio.run(main())
-
-"""
-Project Agora: Main Application Entry Point & Orchestrator (THVI Integrated)
-"""
-# ... (all other imports remain the same)
-from src.visualization.trust_horizon import TrustHorizonDashboard
-
-async def main():
-    """The main async function to orchestrate the application."""
-    print("--- PROJECT AGORA SYSTEM BOOT (VISUAL SIMULATION V2) ---")
-    
-    # 1. Initialize all modules
-    # ... (initialization of other modules is unchanged)
-    simulation = Simulation()
-    dashboard = Dashboard()
-    trust_dashboard = TrustHorizonDashboard() # Initialize the THVI dashboard
-    
-    print("\n--- All modules initialized. Starting persistent simulation. ---")
-    
-    # ... (simulation loop logic is mostly unchanged)
-    for i in range(simulation_ticks):
-        # ... (core logic of the loop is unchanged)
-        
-        # UPDATE: Update both dashboards with the new world state
-        dashboard.update(simulation.world_state)
-        trust_dashboard.update(simulation.world_state['day'], adam.causal_ledger.ledger)
-        
-        await asyncio.sleep(0.2)
-
-    # ... (rest of the script is unchanged)
-
-"""
-Project Agora: Main Application Entry Point & Orchestrator (THVI Integrated)
-"""
-# ... (all other imports remain the same)
-from src.visualization.trust_horizon import TrustHorizonDashboard
-
-async def main():
-    """The main async function to orchestrate the application."""
-    print("--- PROJECT AGORA SYSTEM BOOT (VISUAL SIMULATION V2) ---")
-    
-    # 1. Initialize all modules
-    # ... (initialization of other modules is unchanged)
-    simulation = Simulation()
-    dashboard = Dashboard()
-    trust_dashboard = TrustHorizonDashboard() # Initialize the THVI dashboard
-    
-    print("\n--- All modules initialized. Starting persistent simulation. ---")
-    
-    # ... (simulation loop logic is mostly unchanged)
-    for i in range(simulation_ticks):
-        # ... (core logic of the loop is unchanged)
-        
-        # UPDATE: Update both dashboards with the new world state
-        dashboard.update(simulation.world_state)
-        trust_dashboard.update(simulation.world_state['day'], adam.causal_ledger.ledger)
-        
-        await asyncio.sleep(0.2)
-
-    # ... (rest of the script is unchanged)
