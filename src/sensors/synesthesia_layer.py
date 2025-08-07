@@ -6,7 +6,6 @@ This module translates raw, multimodal sensor data into emotional resonance,
 giving A.D.A.M. a form of synesthesia to "feel" its environment.
 """
 from typing import Dict
-from src.agents.adam_core import ADAM
 
 class SensorMeshSynesthesiaLayer:
     """
