@@ -27,3 +27,17 @@ def test_c_seed_api_deployment_flow():
     assert "failed" in api.discover_and_deploy_sensor(unsafe_sensor)
     assert "voc-01" in mesh.active_sensors
     assert "mind-01" not in mesh.active_sensors
+
+# === NEW TESTS FOR SMSL ADDED TO THE FILE ===
+
+from src.sensors.synesthesia_layer import SensorMeshSynesthesiaLayer
+
+def test_smsl_translates_sensor_data_to_affect():
+    """Tests the SMSL's ability to translate sensor data into context."""
+    smsl = SensorMeshSynesthesiaLayer()
+    
+    calm_data = {'light_level_lux': 100, 'sound_level_db': 30}
+    chaotic_data = {'light_level_lux': 1200, 'sound_level_db': 80}
+    
+    assert smsl.translate(calm_data)['affective_context'] == "calm_and_private"
+    assert smsl.translate(chaotic_data)['affective_context'] == "chaotic_and_public"
