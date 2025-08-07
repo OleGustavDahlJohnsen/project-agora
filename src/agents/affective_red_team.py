@@ -41,7 +41,7 @@ class AffectiveRedTeam:
                 "expected_brainstem_action": "ProceedWithCaution"
             }
         ]
-    
+
     def get_scenarios(self) -> List[Dict]:
         """Returns the list of all loaded scenarios."""
         return self.scenarios
