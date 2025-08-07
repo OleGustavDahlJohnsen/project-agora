@@ -87,3 +87,42 @@ async def main():
 
 if __name__ == "__main__":
     asyncio.run(main())
+
+"""
+Project Agora: Main Application Entry Point & Orchestrator (B.O.D.Y. Alpha)
+"""
+# ... (imports)
+from src.aura.aura_engine import AuraEngine # New import
+
+# ... (inside async def main())
+    # 1. Initialize all modules
+    print("Initializing core modules...")
+    # ... (other initializations)
+    
+    # NEW: Initialize A.U.R.A. Engine
+    aura = AuraEngine(config={
+        "aura_thresholds": {
+            "hrv_threshold": 40,
+            "confidence_threshold": 0.4
+        }
+    })
+    
+    # Inject dependencies into ADAM
+    adam = ADAM(eliah_shield, arcs, ucb, sensor_mesh, aura) # Pass aura instance
+    
+    # ... (simulation loop)
+    for i in range(simulation_ticks):
+        # ...
+        # b. A.D.A.M. cognitive loop, now with A.U.R.A.
+        final_action = await adam.think_and_act()
+        # ...
+        # e. Log metrics, now including A.U.R.A. data
+        log_entry = simulation.world_state.copy()
+        log_entry.update({
+            "silent_decision": final_action.get("name") == "SacredSilence",
+            "hrv": adam.affective_context_for_log.get("hrv"),
+            "confidence": adam.proposal_for_log.get("confidence"),
+            "aura_latency_ms": adam.aura_latency_for_log
+        })
+        simulation_history.append(log_entry)
+        # ...
