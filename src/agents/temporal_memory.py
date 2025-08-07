@@ -20,7 +20,7 @@ class TemporalMemory:
         For this MVP, we will track action frequency as a proxy for trust evolution.
         """
         if not ledger_history:
-            return {"trust_pattern": "no_history"}
+            return {"trust_pattern": "no_history", "wisdom_summary": "No relational history yet."}
 
         action_counts = {}
         for entry in ledger_history:
