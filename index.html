@@ -124,15 +124,12 @@
         .light-theme .doc-card:hover { box-shadow: 0 8px 15px rgba(0,0,0,0.1); }
         .dark-theme .doc-card:hover { border-color: var(--accent-dark); }
         
-        .doc-card h4 { margin: 0 0 0.5rem 0; font-size: 1.2rem; }
-        .light-theme .doc-card h4 { color: var(--accent-light); }
-        .dark-theme .doc-card h4 { color: var(--accent-dark); }
+        a.doc-card h4 { margin: 0 0 0.5rem 0; font-size: 1.2rem; }
+        .light-theme a.doc-card h4 { color: var(--accent-light); }
+        .dark-theme a.doc-card h4 { color: var(--accent-dark); }
 
         .doc-card p { margin: 0; font-size: 0.9rem; flex-grow: 1; line-height: 1.5; opacity: 0.8; }
-        .card-footer { margin-top: 1rem; }
-        .doc-card img.system-map { margin-top: 1rem; border-radius: 8px; border: 1px solid var(--border-light); max-width: 100%; height: auto; }
-        .dark-theme .doc-card img.system-map { border-color: var(--border-dark); }
-
+        
         .sister-card {
             grid-column: 1 / -1; flex-direction: row; align-items: center; gap: 2rem;
             border-radius: 12px; padding: 1.5rem; text-decoration: none;
@@ -150,6 +147,17 @@
         .sister-card-text p { margin: 0; opacity: 0.8; }
         .light-theme .sister-card-text p { color: var(--text-light); }
         .dark-theme .sister-card-text p { color: var(--text-dark); }
+
+        /* System Map Section */
+         .system-map-container { display: flex; gap: 2rem; align-items: flex-start; flex-wrap: wrap; }
+         .system-map-item { flex: 1; min-width: 300px; text-align: center; }
+         .system-map-item img {
+            max-width: 100%; height: auto; border-radius: 12px;
+            border: 1px solid var(--border-dark); margin-bottom: 1rem;
+         }
+         .light-theme .system-map-item img { border-color: var(--border-light); }
+         .system-map-item h4 { font-size: 1.2rem; margin-bottom: 0.5rem; }
+         .system-map-item p { font-size: 0.9rem; opacity: 0.8; }
         
         /* Search */
         .search-container { margin: 3rem 0; display: flex; justify-content: center; }
@@ -197,6 +205,22 @@
             </div>
         </section>
 
+        <section id="system-maps" class="docs-section">
+            <h3>Ecosystem at a Glance</h3>
+            <div class="system-map-container">
+                <div class="system-map-item">
+                     <img src="images/project-agora-system-map.png" alt="Project Agora System Map">
+                     <h4>Project Agora System Map</h4>
+                     <p>Illustrates the core architecture of Project Agora, showing how each major component of the B.O.D.Y. framework interconnects to form a cohesive whole.</p>
+                </div>
+                <div class="system-map-item">
+                     <img src="images/the-complete-concordia-synthesis.png" alt="The Complete Concordia System Map">
+                     <h4>The Complete Ecosystem</h4>
+                     <p>Presents the entire Concordia–Agora ecosystem, showing how Agora functions as the central orchestration layer within the multi-layered governance framework.</p>
+                </div>
+            </div>
+        </section>
+        
         <section class="search-container">
              <input type="text" id="searchInput" placeholder="Search all documents...">
         </section>
@@ -208,7 +232,7 @@
         </section>
         
         <section id="validation-appendices" class="docs-section">
-            <h3>II. Validation & Appendices</h3>
+            <h3>II. Validation & Technical Files</h3>
             <div class="docs-grid" id="validation-grid">
                  </div>
         </section>
@@ -232,7 +256,6 @@
                 </a>
             </div>
         </section>
-
     </div>
 
     <footer>
@@ -260,77 +283,101 @@
             // Category 1: Architecture & Vision
             {
                 category: 'architecture',
-                title: '01. The White Paper',
-                description: 'The complete v2.0 architectural blueprint, detailing its philosophy, design, and a 365-day ethical stability simulation.',
-                url: 'docs/project-agora.pdf'
-            },
-            {
-                category: 'architecture',
-                title: '02. The Concordia Synthesis',
+                title: '01. The Concordia Synthesis',
                 description: 'The master blueprint and foundational vision from which Agora emerged. Outlines the five core pillars of the entire ecosystem.',
                 url: 'docs/00_THE_CONCORDIA_SYNTHESIS.md'
             },
             {
                 category: 'architecture',
-                title: '03. The Sanctuary Architecture',
+                title: '01. Sanctuary Architecture',
                 description: 'A deep dive into the core components: SANCTUM (the haven), PORTA SANCTA (the ethical gateway), and CHIMERA SANCTUM.',
                 url: 'docs/01_SANCTUARY_ARCHITECTURE.md'
             },
             {
                 category: 'architecture',
-                title: '04. The B.O.D.Y. Framework',
+                title: '01. Agora Architecture (C4)',
+                description: 'High-level C4 diagrams (Context, Containers, Components) for the Project Agora system.',
+                url: 'docs/01_concordia_architecture.md'
+            },
+            {
+                category: 'architecture',
+                title: '02. Constitutional Creativity',
+                description: 'Explains the Symbiotic Genesis methodology, where the architecture emerged from a long-term, constitutionally-governed simulation.',
+                url: 'docs/02_CONSTITUTIONAL_CREATIVITY.md'
+            },
+            {
+                category: 'architecture',
+                title: '02. B.O.D.Y Framework',
                 description: 'Details the "Binding Of Distributed Yields" architecture in v2.0, which unifies all modules into a single, symbiotic organism.',
                 url: 'docs/02_body_framework.md'
             },
             {
                 category: 'architecture',
-                title: '05. The A.U.R.A. Module',
+                title: '03. The A.U.R.A. Module',
                 description: 'Details the innovative "Architecture of Wise Silence," which enables the AI to use empathetic silence as a strategic response.',
                 url: 'docs/03_aura_module.md'
             },
             {
                 category: 'architecture',
-                title: '06. Ethical Oversight',
+                title: '04. Methodology: Symbiotic Genesis',
+                description: 'The design philosophy of Agora rests on a constitutionally inspired simulation methodology.',
+                url: 'docs/04_methodology_symbiotic_genesis.md'
+            },
+            {
+                category: 'architecture',
+                title: '07. Ethical Oversight',
                 description: 'Explains how ethics are woven into the system\'s "ontological scaffolding" rather than being an afterthought.',
                 url: 'docs/07_ethical_oversight.md'
             },
 
-            // Category 2: Validation & Appendices
+            // Category 2: Validation & Technical Files
             {
                 category: 'validation',
-                title: '07. Simulation Results & KPIs',
-                description: 'Presents the definitive quantitative results from the 365-day simulation, including Intent Drift and Rollback Rate.',
-                url: 'docs/09_simulation_results_kpis.md'
-            },
-            {
-                category: 'validation',
-                title: '08. External Validation',
-                description: 'A comparative analysis of Agora against other state-of-the-art ethical AI systems from OpenAI, DeepMind, and more.',
-                url: 'docs/10_external_validation.md'
-            },
-            {
-                category: 'validation',
-                title: '09. Security & Resilience',
-                description: 'Outlines the Zero Trust architecture and multi-layered defenses against threats like prompt injection and moral evasion.',
-                url: 'docs/06_security_resilience.md'
-            },
-            {
-                category: 'validation',
-                title: '10. Constitutional Creativity',
-                description: 'Explains the Symbiotic Genesis methodology, where the architecture emerged from a long-term, constitutionally-governed simulation.',
-                url: 'docs/02_CONSTITUTIONAL_CREATIVITY.md'
-            },
-            {
-                category: 'validation',
-                title: '11. MVP Implementation',
+                title: '05. MVP Implementation',
                 description: 'Describes the technology stack (Python, Rust) and the realization of core protocols in the Agora MVP.',
                 url: 'docs/05_implementation_mvp.md'
             },
             {
                 category: 'validation',
-                title: '12. Reproducibility & Limitations',
+                title: '06. Security & Resilience',
+                description: 'Outlines the Zero Trust architecture and multi-layered defenses against threats like prompt injection and moral evasion.',
+                url: 'docs/06_security_resilience.md'
+            },
+            {
+                category: 'validation',
+                title: '08. System Maps',
+                description: 'Visual diagrams of the Project Agora system and the complete Concordia ecosystem.',
+                url: 'docs/08_system_maps.md'
+            },
+            {
+                category: 'validation',
+                title: '09. Simulation Results & KPIs',
+                description: 'Presents the definitive quantitative results from the 365-day simulation, including Intent Drift and Rollback Rate.',
+                url: 'docs/09_simulation_results_kpis.md'
+            },
+            {
+                category: 'validation',
+                title: '10. External Validation',
+                description: 'A comparative analysis of Agora against other state-of-the-art ethical AI systems.',
+                url: 'docs/10_external_validation.md'
+            },
+            {
+                category: 'validation',
+                title: '11. Reproducibility & Limitations',
                 description: 'Provides all necessary information for independent verification and transparently discusses the project\'s limitations.',
                 url: 'docs/11_reproducibility_and_limitations.md'
+            },
+            {
+                category: 'validation',
+                title: 'Technical Index (BODY.md)',
+                description: 'A quick-reference index mapping B.O.D.Y. modules to their source code and unit tests.',
+                url: 'docs/BODY.md'
+            },
+            {
+                category: 'validation',
+                title: 'Risk Analysis (risks.md)',
+                description: 'A summary of key risks and their mitigation strategies for the B.O.D.Y. framework and A.U.R.A. module.',
+                url: 'docs/risks.md'
             }
         ];
 
@@ -343,10 +390,8 @@
             card.href = doc.url;
             card.className = 'doc-card';
             card.target = '_blank';
-            // Add attributes for searching
             card.setAttribute('data-title', doc.title.toLowerCase());
             card.setAttribute('data-description', doc.description.toLowerCase());
-            
             card.innerHTML = `<div><h4>${doc.title}</h4><p>${doc.description}</p></div>`;
             return card;
         }
