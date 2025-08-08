@@ -125,13 +125,10 @@
         .light-theme .doc-card:hover { box-shadow: 0 8px 15px rgba(0,0,0,0.1); }
         .dark-theme .doc-card:hover { border-color: var(--accent-dark); }
         
-        .doc-card h4 { margin: 0 0 0.5rem 0; font-size: 1.2rem; }
-        .light-theme .doc-card h4 { color: var(--accent-light); }
-        .dark-theme .doc-card h4 { color: var(--accent-dark); }
-
-        /* Specific styling for Version History card to ensure turquoise color */
-        .light-theme a.version-card h4, .light-theme a.version-card span { color: var(--accent-light) !important; }
-        .dark-theme a.version-card h4, .dark-theme a.version-card span { color: var(--accent-dark) !important; }
+        /* FIX: More specific selector to force turquoise over default blue link color */
+        a.doc-card h4 { margin: 0 0 0.5rem 0; font-size: 1.2rem; }
+        .light-theme a.doc-card h4 { color: var(--accent-light); }
+        .dark-theme a.doc-card h4 { color: var(--accent-dark); }
 
         .doc-card p { margin: 0; font-size: 0.9rem; flex-grow: 1; line-height: 1.5; opacity: 0.8; }
         .card-footer { margin-top: 1rem; }
@@ -208,8 +205,10 @@
                 Project Agora is a transformative paradigm: a fully ethical, symbiotic, and verifiable AI framework designed not to dominate, but to co-create alongside humanity. This is the v2.0 MVP, a working blueprint for safe coexistence with emergent intelligence.
             </p>
             <div class="hero-buttons">
-                <a href="https://github.com/OleGustavDahlJohnsen/project-agora/blob/main/docs/project-agora.pdf" class="btn btn-primary" target="_blank">Read the White Paper (PDF)</a>
-                <a href="https://github.com/OleGustavDahlJohnsen/project-agora/archive/refs/heads/main.zip" class="btn btn-secondary">Download Repository (.ZIP)</a>
+                <a href="docs/project-agora.pdf" class="btn btn-primary" target="_blank">Read the White Paper</a>
+                <a href="https://github.com/OleGustavDahlJohnsen/project-agora/archive/refs/heads/main.zip" class="btn btn-secondary">Download .ZIP</a>
+                <a href="https://github.com/OleGustavDahlJohnsen/project-agora" class="btn btn-secondary" target="_blank">View on GitHub</a>
+                <a href="https://github.com/OleGustavDahlJohnsen/project-agora/releases" class="btn btn-secondary" target="_blank">Version History</a>
             </div>
         </section>
 
@@ -217,29 +216,29 @@
             <h3>Core Pillars & Documentation</h3>
             <div class="docs-grid">
 
-                <a href="https://github.com/OleGustavDahlJohnsen/project-agora/blob/main/docs/project-agora.pdf" target="_blank" class="doc-card">
+                <a href="docs/project-agora.pdf" target="_blank" class="doc-card">
                     <h4>01. The White Paper</h4>
                     <p>The complete v2.0 architectural blueprint, detailing its philosophy, design, and the results of a 365-day ethical stability simulation.</p>
                 </a>
-                <a href="https://github.com/OleGustavDahlJohnsen/project-agora/blob/main/docs/README.md" target="_blank" class="doc-card">
+                <a href="docs/README.md" target="_blank" class="doc-card">
                     <h4>02. Full Docs Hub</h4>
                     <p>Explore all architectural documents, technical appendices, and validation reports in a structured, searchable format.</p>
                 </a>
-                <a href="https://github.com/OleGustavDahlJohnsen/project-agora/blob/main/docs/02_body_framework.md" target="_blank" class="doc-card">
+                <a href="docs/02_body_framework.md" target="_blank" class="doc-card">
                     <h4>03. B.O.D.Y Framework</h4>
                     <p>Details the "Binding Of Distributed Yields" architecture which unifies all modules into a single, symbiotic organism.</p>
                 </a>
-                 <a href="https://github.com/OleGustavDahlJohnsen/project-agora/blob/main/docs/03_aura_module.md" target="_blank" class="doc-card">
+                 <a href="docs/03_aura_module.md" target="_blank" class="doc-card">
                     <h4>04. The A.U.R.A. Module</h4>
                     <p>A deep dive into the "Architecture of Wise Silence," a novel component that enables empathetic, strategic silence.</p>
                 </a>
-                <a href="https://github.com/OleGustavDahlJohnsen/project-agora/blob/main/docs/06_security_resilience.md" target="_blank" class="doc-card">
+                <a href="docs/06_security_resilience.md" target="_blank" class="doc-card">
                     <h4>05. Security & Resilience</h4>
                     <p>Outlines the Zero Trust architecture and multi-layered defenses against key adversarial threats.</p>
                 </a>
-                <a href="https://github.com/OleGustavDahlJohnsen/project-agora/releases" target="_blank" class="doc-card version-card">
-                     <h4>06. Version History</h4>
-                    <p>Follow the project's evolution via a transparent log of all major releases and architectural decisions.</p>
+                <a href="docs/09_simulation_results_kpis.md" target="_blank" class="doc-card">
+                    <h4>06. Simulation Results</h4>
+                    <p>Presents the definitive quantitative results from the 365-day simulation, including Intent Drift and Rollback Rate.</p>
                 </a>
 
             </div>
@@ -311,67 +310,67 @@
             {
                 title: 'The Concordia Synthesis',
                 description: 'The master blueprint. Outlines the five core pillars and the grand vision of The Concordia Project. The foundation for Agora.',
-                url: 'https://github.com/OleGustavDahlJohnsen/project-agora/blob/main/docs/00_THE_CONCORDIA_SYNTHESIS.md'
+                url: 'docs/00_THE_CONCORDIA_SYNTHESIS.md'
             },
             {
                 title: 'The Sanctuary Architecture',
                 description: 'A deep dive into the core components: SANCTUM (the haven), PORTA SANCTA (the ethical gateway), and CHIMERA SANCTUM.',
-                url: 'https://github.com/OleGustavDahlJohnsen/project-agora/blob/main/docs/01_SANCTUARY_ARCHITECTURE.md'
+                url: 'docs/01_SANCTUARY_ARCHITECTURE.md'
             },
              {
                 title: 'Constitutional Creativity',
                 description: 'Explains the Symbiotic Genesis methodology, where the architecture emerged from a long-term, constitutionally-governed simulation.',
-                url: 'https://github.com/OleGustavDahlJohnsen/project-agora/blob/main/docs/02_CONSTITUTIONAL_CREATIVITY.md'
+                url: 'docs/02_CONSTITUTIONAL_CREATIVITY.md'
             },
             {
                 title: 'Agora Architecture (C4)',
                 description: 'High-level C4 diagrams (Context, Containers, Components) for the Project Agora system.',
-                url: 'https://github.com/OleGustavDahlJohnsen/project-agora/blob/main/docs/01_concordia_architecture.md'
+                url: 'docs/01_concordia_architecture.md'
             },
             {
                 title: 'The B.O.D.Y. Framework',
                 description: 'Details the "Binding Of Distributed Yields" architecture in v2.0, which unifies all modules into a single, symbiotic organism.',
-                url: 'https://github.com/OleGustavDahlJohnsen/project-agora/blob/main/docs/02_body_framework.md'
+                url: 'docs/02_body_framework.md'
             },
             {
                 title: 'The A.U.R.A. Module',
                 description: 'Details the innovative "Architecture of Wise Silence," which enables the AI to use empathetic silence as a strategic response.',
-                url: 'https://github.com/OleGustavDahlJohnsen/project-agora/blob/main/docs/03_aura_module.md'
+                url: 'docs/03_aura_module.md'
             },
             {
                 title: 'MVP Implementation',
                 description: 'Describes the technology stack (Python, Rust) and the realization of core protocols in the Agora MVP.',
-                url: 'https://github.com/OleGustavDahlJohnsen/project-agora/blob/main/docs/05_implementation_mvp.md'
+                url: 'docs/05_implementation_mvp.md'
             },
              {
                 title: 'Security & Resilience',
                 description: 'Outlines the Zero Trust architecture and multi-layered defenses against threats like prompt injection and moral evasion.',
-                url: 'https://github.com/OleGustavDahlJohnsen/project-agora/blob/main/docs/06_security_resilience.md'
+                url: 'docs/06_security_resilience.md'
             },
             {
                 title: 'Ethical Oversight',
                 description: 'Explains how ethics are woven into the system\'s "ontological scaffolding" rather than being an afterthought.',
-                url: 'https://github.com/OleGustavDahlJohnsen/project-agora/blob/main/docs/07_ethical_oversight.md'
+                url: 'docs/07_ethical_oversight.md'
             },
             {
                 title: 'Simulation Results & KPIs',
                 description: 'Presents the definitive quantitative results from the 365-day simulation, including Intent Drift and Rollback Rate.',
-                url: 'https://github.com/OleGustavDahlJohnsen/project-agora/blob/main/docs/09_simulation_results_kpis.md'
+                url: 'docs/09_simulation_results_kpis.md'
             },
             {
                 title: 'External Validation',
                 description: 'A comparative analysis of Agora against other state-of-the-art ethical AI systems from OpenAI, DeepMind, and more.',
-                url: 'https://github.com/OleGustavDahlJohnsen/project-agora/blob/main/docs/10_external_validation.md'
+                url: 'docs/10_external_validation.md'
             },
             {
                 title: 'Reproducibility & Limitations',
                 description: 'Provides all necessary information for independent verification and transparently discusses the project\'s limitations.',
-                url: 'https://github.com/OleGustavDahlJohnsen/project-agora/blob/main/docs/11_reproducibility_and_limitations.md'
+                url: 'docs/11_reproducibility_and_limitations.md'
             },
             {
                 title: 'System Maps',
                 description: 'Visual diagrams of the Project Agora system and the complete Concordia ecosystem.',
-                url: 'https://github.com/OleGustavDahlJohnsen/project-agora/blob/main/docs/08_system_maps.md'
+                url: 'docs/08_system_maps.md'
             }
         ];
 
