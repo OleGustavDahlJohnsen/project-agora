@@ -25,12 +25,14 @@
             --header-bg-dark: rgba(32, 33, 36, 0.85);
             --accent-dark-transparent: rgba(102, 252, 241, 0.3);
             
+            /* Specific Blue for Concordia Sister Card */
+            --concordia-blue-light: #1a73e8;
+            --concordia-blue-dark: #8ab4f8;
+
             --shadow: 0 4px 6px rgba(0,0,0,0.1);
         }
 
-        html {
-            scroll-behavior: smooth;
-        }
+        html { scroll-behavior: smooth; }
 
         body {
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
@@ -39,21 +41,10 @@
             transition: background-color 0.3s, color 0.3s;
         }
 
-        .light-theme {
-            background-color: var(--bg-light);
-            color: var(--text-light);
-        }
+        .light-theme { background-color: var(--bg-light); color: var(--text-light); }
+        .dark-theme { background-color: var(--bg-dark); color: var(--text-dark); }
 
-        .dark-theme {
-            background-color: var(--bg-dark);
-            color: var(--text-dark);
-        }
-
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 2rem;
-        }
+        .container { max-width: 1200px; margin: 0 auto; padding: 2rem; }
 
         header {
             display: flex;
@@ -71,254 +62,128 @@
         .light-theme header { background-color: var(--header-bg-light); border-color: var(--border-light); }
         .dark-theme header { background-color: var(--header-bg-dark); border-color: var(--border-dark); }
 
-        .title-version h1 {
-            margin: 0;
-            font-size: 1.5rem;
-        }
+        .title-version h1 { margin: 0; font-size: 1.5rem; }
         .title-version span {
-            font-size: 0.9rem;
-            opacity: 0.8;
-            font-weight: 500;
-            margin-left: 8px;
-            padding: 2px 6px;
-            border-radius: 4px;
+            font-size: 0.9rem; opacity: 0.8; font-weight: 500;
+            margin-left: 8px; padding: 2px 6px; border-radius: 4px;
         }
         .light-theme .title-version span { background-color: #d4edda; color: var(--accent-light); }
         .dark-theme .title-version span { background-color: #3c4043; color: var(--accent-dark); }
 
-        .theme-switch-wrapper {
-            display: flex;
-            align-items: center;
-        }
-        .theme-switch {
-            display: inline-block;
-            height: 24px;
-            position: relative;
-            width: 48px;
-        }
+        .theme-switch-wrapper { display: flex; align-items: center; }
+        .theme-switch { display: inline-block; height: 24px; position: relative; width: 48px; }
         .theme-switch input { display:none; }
         .slider {
-            background-color: #ccc;
-            bottom: 0;
-            cursor: pointer;
-            left: 0;
-            position: absolute;
-            right: 0;
-            top: 0;
-            transition: .4s;
-            border-radius: 24px;
+            background-color: #ccc; bottom: 0; cursor: pointer; left: 0;
+            position: absolute; right: 0; top: 0; transition: .4s; border-radius: 24px;
         }
         .slider:before {
-            background-color: #fff;
-            bottom: 4px;
-            content: "";
-            height: 16px;
-            left: 4px;
-            position: absolute;
-            transition: .4s;
-            width: 16px;
-            border-radius: 50%;
+            background-color: #fff; bottom: 4px; content: ""; height: 16px; left: 4px;
+            position: absolute; transition: .4s; width: 16px; border-radius: 50%;
         }
         input:checked + .slider { background-color: var(--accent-light); }
         .dark-theme input:checked + .slider { background-color: var(--accent-dark); }
         input:checked + .slider:before { transform: translateX(24px); }
 
-        .hero {
-            text-align: center;
-            padding: 4rem 1rem;
-            border-bottom: 1px solid;
-        }
-        .light-theme .hero { border-color: var(--border-light); }
-        .dark-theme .hero { border-color: var(--border-dark); }
-
-        .hero-logo {
-            max-width: 250px;
-            height: auto;
-            margin-bottom: 2rem;
-            filter: drop-shadow(0 0 15px var(--accent-dark-transparent));
-        }
-
-        .hero h2 {
-            font-size: 2.5rem;
-            margin-bottom: 1rem;
-            font-weight: 600;
-        }
-        .hero p {
-            max-width: 800px;
-            margin: 0 auto 2rem auto;
-            font-size: 1.1rem;
-            line-height: 1.6;
-            opacity: 0.8;
-        }
-        .hero-buttons {
-            display: flex;
-            justify-content: center;
-            gap: 1rem;
-            flex-wrap: wrap;
-        }
+        .hero { text-align: center; padding: 4rem 1rem; }
+        
+        .hero-logo { max-width: 250px; height: auto; margin-bottom: 2rem; filter: drop-shadow(0 0 15px var(--accent-dark-transparent)); }
+        .hero h2 { font-size: 2.5rem; margin-bottom: 1rem; font-weight: 600; }
+        .hero p { max-width: 800px; margin: 0 auto 2rem auto; font-size: 1.1rem; line-height: 1.6; opacity: 0.8; }
+        .hero-buttons { display: flex; justify-content: center; gap: 1rem; flex-wrap: wrap; }
         .btn {
-            padding: 12px 24px;
-            text-decoration: none;
-            border-radius: 8px;
-            font-weight: 600;
-            transition: transform 0.2s, box-shadow 0.2s;
-            display: inline-block;
-            text-align: center;
+            padding: 12px 24px; text-decoration: none; border-radius: 8px; font-weight: 600;
+            transition: transform 0.2s, box-shadow 0.2s; display: inline-block; text-align: center;
         }
-        .btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 6px 12px rgba(0,0,0,0.15);
-        }
-        .btn-primary {
-            color: #fff;
-        }
+        .btn:hover { transform: translateY(-2px); box-shadow: 0 6px 12px rgba(0,0,0,0.15); }
+        .btn-primary { color: #fff; }
         .light-theme .btn-primary { background-color: var(--accent-light); color: #fff; }
         .dark-theme .btn-primary { background-color: var(--accent-dark); color: var(--bg-dark); }
 
-        .btn-secondary {
-            border: 1px solid;
-        }
+        .btn-secondary { border: 1px solid; }
         .light-theme .btn-secondary { border-color: var(--accent-light); color: var(--accent-light); }
         .dark-theme .btn-secondary { border-color: var(--accent-dark); color: var(--accent-dark); }
         
-        .docs-section {
-            margin: 4rem 0;
-        }
+        .btn-tertiary { padding: 6px 12px; font-size: 0.8rem; opacity: 0.8; }
+
+        .docs-section { margin: 4rem 0; padding-top: 2rem; }
         .docs-section h3 {
-            font-size: 1.8rem;
-            margin-bottom: 2rem;
-            padding-bottom: 0.5rem;
-            border-bottom: 2px solid;
-            text-align: center;
+            font-size: 1.8rem; margin-bottom: 2rem; padding-bottom: 0.5rem;
+            border-bottom: 2px solid; text-align: center;
         }
         .light-theme .docs-section h3 { border-color: var(--accent-light); }
         .dark-theme .docs-section h3 { border-color: var(--accent-dark); }
 
-        .docs-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-            gap: 1.5rem;
-        }
+        .docs-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 1.5rem; }
         
         .doc-card, .sister-card {
-            border-radius: 12px;
-            padding: 1.5rem;
-            text-decoration: none;
-            display: flex;
-            flex-direction: column;
-            transition: transform 0.3s, box-shadow 0.3s;
-            border: 1px solid;
+            border-radius: 12px; padding: 1.5rem; text-decoration: none;
+            display: flex; flex-direction: column; transition: transform 0.3s, box-shadow 0.3s; border: 1px solid;
         }
         .light-theme .doc-card, .light-theme .sister-card {
-            background-color: var(--card-bg-light);
-            border-color: var(--border-light);
-            box-shadow: var(--shadow);
+            background-color: var(--card-bg-light); border-color: var(--border-light); box-shadow: var(--shadow);
         }
         .dark-theme .doc-card, .dark-theme .sister-card {
-            background-color: var(--card-bg-dark);
-            border-color: var(--border-dark);
+            background-color: var(--card-bg-dark); border-color: var(--border-dark);
         }
-        .doc-card:hover, .sister-card:hover {
-            transform: translateY(-5px);
-        }
+        .doc-card:hover, .sister-card:hover { transform: translateY(-5px); }
         .light-theme .doc-card:hover, .light-theme .sister-card:hover { box-shadow: 0 8px 15px rgba(0,0,0,0.1); }
-        .dark-theme .doc-card:hover, .dark-theme .sister-card:hover { border-color: var(--accent-dark); }
+        .dark-theme .doc-card:hover { border-color: var(--accent-dark); }
         
-        .doc-card h4 {
-            margin: 0 0 0.5rem 0;
-            font-size: 1.2rem;
-        }
+        .doc-card h4 { margin: 0 0 0.5rem 0; font-size: 1.2rem; }
         .light-theme .doc-card h4 { color: var(--accent-light); }
         .dark-theme .doc-card h4 { color: var(--accent-dark); }
         
-        .doc-card p {
-            margin: 0;
-            font-size: 0.9rem;
-            flex-grow: 1;
-            line-height: 1.5;
-            opacity: 0.8;
-        }
-        
-        .card-footer {
-            margin-top: 1rem;
-        }
-
-        .doc-card img.system-map {
-            margin-top: 1rem;
-            border-radius: 8px;
-            border: 1px solid var(--border-light);
-            max-width: 100%;
-            height: auto;
-        }
-        .dark-theme .doc-card img.system-map {
-            border-color: var(--border-dark);
-        }
+        .doc-card p { margin: 0; font-size: 0.9rem; flex-grow: 1; line-height: 1.5; opacity: 0.8; }
+        .card-footer { margin-top: 1rem; }
+        .doc-card img.system-map { margin-top: 1rem; border-radius: 8px; border: 1px solid var(--border-light); max-width: 100%; height: auto; }
+        .dark-theme .doc-card img.system-map { border-color: var(--border-dark); }
         
         /* Sister Project Card Specifics */
-        .sister-card {
-            grid-column: 1 / -1; /* Make it span the full width */
-            flex-direction: row;
-            align-items: center;
-            gap: 2rem;
-        }
-        .sister-card img {
-            max-width: 100px;
-            height: auto;
-            border-radius: 8px;
-        }
-        .sister-card-text h4 {
-            margin: 0 0 0.5rem 0;
-            font-size: 1.2rem;
-            color: var(--accent-light);
-        }
-        .dark-theme .sister-card-text h4 {
-            color: var(--accent-dark);
-        }
-         .sister-card-text p {
-            margin: 0;
-            opacity: 0.8;
-         }
+        .sister-card { grid-column: 1 / -1; flex-direction: row; align-items: center; gap: 2rem; }
+        .light-theme .sister-card:hover { border-color: var(--concordia-blue-light); }
+        .dark-theme .sister-card:hover { border-color: var(--concordia-blue-dark); }
+        .sister-card img { max-width: 100px; height: auto; border-radius: 8px; }
+        .sister-card-text h4 { margin: 0 0 0.5rem 0; font-size: 1.2rem; }
+        .light-theme .sister-card-text h4 { color: var(--concordia-blue-light); }
+        .dark-theme .sister-card-text h4 { color: var(--concordia-blue-dark); }
+        .sister-card-text p { margin: 0; opacity: 0.8; }
 
-         /* System Map Section */
-         .system-map-container {
-            display: flex;
-            gap: 2rem;
-            align-items: flex-start;
-            flex-wrap: wrap;
-         }
-         .system-map-item {
-             flex: 1;
-             min-width: 300px;
-             text-align: center;
-         }
-         .system-map-item img {
-            max-width: 100%;
-            height: auto;
-            border-radius: 12px;
-            border: 1px solid var(--border-dark);
-            margin-bottom: 1rem;
-         }
-         .light-theme .system-map-item img { border-color: var(--border-light); }
-         .system-map-item h4 {
-            font-size: 1.2rem;
-            margin-bottom: 0.5rem;
-         }
-         .system-map-item p {
-            font-size: 0.9rem;
-            opacity: 0.8;
-         }
+        /* Roadmap */
+        .roadmap { list-style: none; padding: 0; margin: 2rem 0 0 20px; position: relative; text-align: left; }
+        .roadmap:before { content: ''; position: absolute; top: 10px; bottom: 10px; width: 2px; left: 10px; background: var(--border-dark); }
+        .light-theme .roadmap:before { background: var(--border-light); }
+        .roadmap li { margin-bottom: 2rem; padding-left: 40px; position: relative; }
+        .roadmap li::before {
+            content: ''; position: absolute; left: 0; top: 5px; width: 20px; height: 20px;
+            border-radius: 50%; border: 3px solid;
+        }
+        .light-theme .roadmap li::before { background: var(--bg-light); border-color: var(--accent-light); }
+        .dark-theme .roadmap li::before { background: var(--bg-dark); border-color: var(--accent-dark); }
+        .roadmap h4 { margin: 0; font-size: 1.1rem; }
+        .roadmap p { margin: 5px 0 0 0; opacity: 0.8; font-size: 0.9rem; }
+        
+        /* Search */
+        .search-container { margin: 3rem 0; display: flex; justify-content: center; }
+        #searchInput {
+            width: 70%; max-width: 800px; padding: 12px 20px;
+            border-radius: 25px; border: 1px solid; font-size: 1rem; transition: all 0.3s;
+        }
+        .light-theme #searchInput {
+            border-color: var(--border-light); background-color: var(--card-bg-light); color: var(--text-light);
+        }
+        .dark-theme #searchInput {
+            border-color: var(--border-dark); background-color: var(--card-bg-dark); color: var(--text-dark);
+        }
+        #searchInput:focus { outline: none; box-shadow: 0 0 0 3px var(--accent-light-transparent); }
+        .dark-theme #searchInput:focus { box-shadow: 0 0 0 3px var(--accent-dark-transparent); }
 
         footer {
-            text-align: center;
-            padding: 2rem;
-            margin-top: 2rem;
-            border-top: 1px solid;
-            font-size: 0.9rem;
-            opacity: 0.7;
+            text-align: center; padding: 2rem; margin-top: 2rem;
+            border-top: 1px solid; font-size: 0.9rem; opacity: 0.7;
         }
         .light-theme footer { border-color: var(--border-light); }
         .dark-theme footer { border-color: var(--border-dark); }
-
     </style>
 </head>
 <body>
@@ -344,65 +209,89 @@
                 Project Agora is a transformative paradigm: a fully ethical, symbiotic, and verifiable AI framework designed not to dominate, but to co-create alongside humanity. This is the v2.0 MVP, a working blueprint for safe coexistence with emergent intelligence.
             </p>
             <div class="hero-buttons">
-                <a href="Project Agora.docx" class="btn btn-primary" target="_blank">Read the White Paper (DOCX)</a>
+                <a href="docs/Project-Agora-White-Paper-v2.0.pdf" class="btn btn-primary" target="_blank">Read the White Paper (PDF)</a>
                 <a href="https://github.com/OleGustavDahlJohnsen/project-agora/archive/refs/heads/main.zip" class="btn btn-secondary">Download Repository (.ZIP)</a>
                 <a href="https://github.com/OleGustavDahlJohnsen/project-agora" class="btn btn-secondary" target="_blank">View on GitHub</a>
             </div>
         </section>
 
-        <section id="documentation" class="docs-section">
-            <h3>Key Documentation</h3>
+        <section id="core-documents" class="docs-section">
+            <h3>Core Pillars & Documentation</h3>
             <div class="docs-grid">
 
                 <div class="doc-card">
+                    <img src="images/project-agora-system-map.png" alt="Agora System Map" class="system-map">
                     <h4>The Agora White Paper</h4>
-                    <p>The complete architectural blueprint for Project Agora, detailing its philosophy, design, implementation, and the results of a 365-day ethical stability simulation.</p>
+                    <p>The complete v2.0 architectural blueprint, detailing its philosophy, design, and the results of a 365-day ethical stability simulation.</p>
                     <div class="card-footer">
-                        <a href="Project Agora.docx" class="btn btn-primary" target="_blank">Read DOCX</a>
+                        <a href="docs/Project-Agora-White-Paper-v2.0.pdf" class="btn btn-primary" target="_blank">Read PDF</a>
+                         <a href="docs/README.md" class="btn btn-secondary btn-tertiary" target="_blank">View Docs Hub</a>
                     </div>
                 </div>
 
                 <div class="doc-card">
-                    <h4>The Documentation Hub</h4>
-                    <p>Explore all architectural documents, technical appendices, and validation reports in a structured, searchable format. Your complete guide to the project's depth.</p>
-                     <div class="card-footer">
-                        <a href="docs/README.md" class="btn btn-primary" target="_blank">Explore Docs</a>
+                    <img src="images/the-complete-concordia-synthesis.png" alt="Concordia Synthesis Map" class="system-map">
+                    <h4>The B.O.D.Y Framework</h4>
+                    <p>Details the "Binding Of Distributed Yields" architecture in v2.0, which unifies all modules into a single, symbiotic organism.</p>
+                    <div class="card-footer">
+                        <a href="docs/02_body_framework.md" class="btn btn-primary" target="_blank">Read Docs</a>
                     </div>
                 </div>
                 
-                <div class="doc-card">
-                    <h4>The A.U.R.A. Module</h4>
-                    <p>A deep dive into the "Architecture of Wise Silence," a novel component that enables the AI to use empathetic silence as a valid, strategic response.</p>
-                     <div class="card-footer">
-                        <a href="docs/03_aura_module.md" class="btn btn-primary" target="_blank">Learn More</a>
-                    </div>
-                </div>
-
-                <a href="https://olegustavdahljohnsen.github.io/concordia-manifest/index.html" target="_blank" class="sister-card">
-                    <img src="images/The Concordia Project.png" alt="The Concordia Project Logo">
-                    <div class="sister-card-text">
-                        <h4>Explore the Core Vision</h4>
-                        <p>Want to see the sister project that forms the core of Project Agora? Click here to explore The Concordia Project and read more.</p>
+                <a href="https://github.com/OleGustavDahlJohnsen/project-agora/releases" target="_blank" class="doc-card">
+                    <div style="text-align:center; margin:auto;">
+                        <h4 style="font-size:1.5rem;">Version History</h4>
+                        <p>Follow the project's evolution. This log provides a transparent history of all major releases and architectural decisions.</p>
+                        <div class="card-footer" style="justify-content:center;"><span>Explore All Releases &rarr;</span></div>
                     </div>
                 </a>
 
             </div>
         </section>
+
+        <section id="roadmap" class="docs-section">
+            <h3>The Path Forward</h3>
+             <ul class="roadmap">
+                <li>
+                    <h4>Phase 3: Deployment & Ethical Scaling</h4>
+                    <p>Transition the project from a laboratory prototype to real-world pilot projects with key partners in health, energy, and education.</p>
+                </li>
+                <li>
+                    <h4>Phase 4: Ecosystem Expansion</h4>
+                    <p>Integrate "Explainable AI" components (LIME, SHAP) for transparency and establish alliances with academic and industry partners.</p>
+                </li>
+                <li>
+                    <h4>Phase 5: Trust & Ubiquity (2028 Vision)</h4>
+                    <p>A network of Concordia-aligned agents operating semi-autonomously within high-sensitivity fields, overseen by human councils.</p>
+                </li>
+            </ul>
+        </section>
         
-        <section id="system-maps" class="docs-section">
-            <h3>System Architecture</h3>
-            <div class="system-map-container">
-                <div class="system-map-item">
-                     <img src="images/project-agora-system-map.png" alt="Project Agora System Map">
-                     <h4>Project Agora System Map</h4>
-                     <p>Illustrates the core architecture of Project Agora, showing how each major component of the B.O.D.Y. framework interconnects to form a cohesive whole.</p>
+        <section id="risk-mitigation" class="docs-section">
+            <h3>Identified Risks & Mitigation</h3>
+            <div class="docs-grid">
+                <div class="doc-card" style="text-decoration:none; cursor:default;">
+                    <h4>Crisis Silence (A.U.R.A.)</h4>
+                    <p><b>Risk:</b> A.U.R.A. might choose silence during a user's acute crisis. <br><b>Mitigation:</b> A hard-coded crisis fallback bypasses silence and triggers a supportive vocal response + human supervisor flag.</p>
                 </div>
-                <div class="system-map-item">
-                     <img src="images/the-complete-concordia-synthesis.png" alt="The Complete Concordia System Map">
-                     <h4>The Complete Ecosystem</h4>
-                     <p>Presents the entire Concordia–Agora ecosystem, showing how Agora functions as the central orchestration layer within the multi-layered governance framework.</p>
+                <div class="doc-card" style="text-decoration:none; cursor:default;">
+                    <h4>Cultural Misunderstanding</h4>
+                    <p><b>Risk:</b> The meaning of silence varies globally. <br><b>Mitigation:</b> The system will use culturally-adapted non-verbal cues and a first-time use prompt to calibrate to user preference.</p>
+                </div>
+                <div class="doc-card" style="text-decoration:none; cursor:default;">
+                    <h4>Multi-Agent Deadlock (B.O.D.Y.)</h4>
+                    <p><b>Risk:</b> Distributed agents in the B.O.D.Y. framework could deadlock. <br><b>Mitigation:</b> The CSNP uses a majority/quorum consensus protocol with a clear timeout and rollback policy for failed consensus.</p>
                 </div>
             </div>
+        </section>
+        
+        <section id="search-section" class="docs-section">
+            <h3>Search All Project Files</h3>
+            <div class="search-container">
+                <input type="text" id="searchInput" placeholder="Search for architecture, A.U.R.A, simulation, etc...">
+            </div>
+            <div class="docs-grid" id="search-grid">
+                </div>
         </section>
 
     </div>
@@ -422,19 +311,122 @@
         }
 
         const savedTheme = localStorage.getItem('theme');
-        // Start in dark mode by default as requested
         const prefersDark = window.matchMedia ? window.matchMedia('(prefers-color-scheme: dark)').matches : true;
+        setTheme(savedTheme ? savedTheme : (prefersDark ? 'dark' : 'dark'));
 
-        if (savedTheme) {
-            setTheme(savedTheme);
-        } else {
-            // Default to dark unless user system preference is light
-            setTheme(prefersDark ? 'dark' : 'dark'); 
+        themeSwitch.addEventListener('change', (event) => setTheme(event.target.checked ? 'dark' : 'light'));
+
+        // --- Document Data for Dynamic Cards & Search ---
+        const documents = [
+            {
+                title: '00. The Concordia Synthesis',
+                description: 'The master blueprint. Outlines the five core pillars and the grand vision of The Concordia Project. The foundation for Agora.',
+                url: 'docs/00_THE_CONCORDIA_SYNTHESIS.md'
+            },
+            {
+                title: '01. The Sanctuary Architecture',
+                description: 'A deep dive into the core components: SANCTUM (the haven), PORTA SANCTA (the ethical gateway), and CHIMERA SANCTUM.',
+                url: 'docs/01_SANCTUARY_ARCHITECTURE.md'
+            },
+             {
+                title: '02. Constitutional Creativity',
+                description: 'Explains the Symbiotic Genesis methodology, where the architecture emerged from a long-term, constitutionally-governed simulation.',
+                url: 'docs/02_CONSTITUTIONAL_CREATIVITY.md'
+            },
+            {
+                title: '03. Agora Architecture (C4)',
+                description: 'High-level C4 diagrams (Context, Containers, Components) for the Project Agora system.',
+                url: 'docs/01_concordia_architecture.md'
+            },
+            {
+                title: '04. The B.O.D.Y. Framework',
+                description: 'Details the "Binding Of Distributed Yields" architecture in v2.0, which unifies all modules into a single, symbiotic organism.',
+                url: 'docs/02_body_framework.md'
+            },
+            {
+                title: '05. The A.U.R.A. Module',
+                description: 'Details the innovative "Architecture of Wise Silence," which enables the AI to use empathetic silence as a strategic response.',
+                url: 'docs/03_aura_module.md'
+            },
+            {
+                title: '06. MVP Implementation',
+                description: 'Describes the technology stack (Python, Rust) and the realization of core protocols in the Agora MVP.',
+                url: 'docs/05_implementation_mvp.md'
+            },
+             {
+                title: '07. Security & Resilience',
+                description: 'Outlines the Zero Trust architecture and multi-layered defenses against threats like prompt injection and moral evasion.',
+                url: 'docs/06_security_resilience.md'
+            },
+            {
+                title: '08. Ethical Oversight',
+                description: 'Explains how ethics are woven into the system\'s "ontological scaffolding" rather than being an afterthought.',
+                url: 'docs/07_ethical_oversight.md'
+            },
+            {
+                title: '09. Simulation Results & KPIs',
+                description: 'Presents the definitive quantitative results from the 365-day simulation, including Intent Drift and Rollback Rate.',
+                url: 'docs/09_simulation_results_kpis.md'
+            },
+            {
+                title: '10. External Validation',
+                description: 'A comparative analysis of Agora against other state-of-the-art ethical AI systems from OpenAI, DeepMind, and more.',
+                url: 'docs/10_external_validation.md'
+            },
+            {
+                title: '11. Reproducibility & Limitations',
+                description: 'Provides all necessary information for independent verification and transparently discusses the project\'s limitations.',
+                url: 'docs/11_reproducibility_and_limitations.md'
+            },
+            {
+                title: '12. System Maps',
+                description: 'Visual diagrams of the Project Agora system and the complete Concordia ecosystem.',
+                url: 'docs/08_system_maps.md'
+            },
+            // The sister card is now static in the HTML, so it's not needed here for the search.
+        ];
+
+        const searchGrid = document.getElementById('search-grid');
+        const searchInput = document.getElementById('searchInput');
+
+        function createSearchCard(doc) {
+             const card = document.createElement('a');
+            card.href = doc.url;
+            card.className = 'doc-card';
+            card.target = '_blank';
+            card.innerHTML = `
+                <div>
+                    <h4>${doc.title}</h4>
+                    <p>${doc.description}</p>
+                </div>`;
+            return card;
         }
 
-        themeSwitch.addEventListener('change', function(event){
-            setTheme(event.target.checked ? 'dark' : 'light');
-        });
+        function renderDocuments(filter = '') {
+            searchGrid.innerHTML = '';
+            // Don't render anything if the search bar is empty
+            if (filter.trim() === '') {
+                return;
+            }
+            const searchTerm = filter.toLowerCase();
+            
+            const filteredDocs = documents.filter(doc => 
+                doc.title.toLowerCase().includes(searchTerm) || 
+                doc.description.toLowerCase().includes(searchTerm)
+            );
+
+            if (filteredDocs.length > 0) {
+                filteredDocs.forEach(doc => {
+                    const card = createSearchCard(doc);
+                    searchGrid.appendChild(card);
+                });
+            } else {
+                searchGrid.innerHTML = `<p style="text-align:center; opacity:0.7;">No documents found matching your search.</p>`;
+            }
+        }
+
+        searchInput.addEventListener('input', (e) => renderDocuments(e.target.value));
+
     </script>
 </body>
 </html>
