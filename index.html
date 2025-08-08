@@ -47,18 +47,11 @@
         .container { max-width: 1200px; margin: 0 auto; padding: 2rem; }
 
         header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 1rem 2rem;
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
+            display: flex; justify-content: space-between; align-items: center;
+            padding: 1rem 2rem; position: sticky; top: 0; z-index: 1000;
+            backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
             border-bottom: 1px solid;
         }
-        
         .light-theme header { background-color: var(--header-bg-light); border-color: var(--border-light); }
         .dark-theme header { background-color: var(--header-bg-dark); border-color: var(--border-dark); }
 
@@ -88,6 +81,11 @@
         .hero { text-align: center; padding: 4rem 1rem; }
         .hero-logo { max-width: 250px; height: auto; margin-bottom: 2rem; filter: drop-shadow(0 0 15px var(--accent-dark-transparent)); }
         .hero h2 { font-size: 2.5rem; margin-bottom: 1rem; font-weight: 600; }
+        .hero h2 span { display: block; font-size: 3.5rem; margin-bottom: -1rem; letter-spacing: 2px; font-weight: 700;
+            background: -webkit-linear-gradient(45deg, var(--accent-dark), var(--accent-light));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
         .hero p { max-width: 800px; margin: 0 auto 2rem auto; font-size: 1.1rem; line-height: 1.6; opacity: 0.8; }
         .hero-buttons { display: flex; justify-content: center; gap: 1rem; flex-wrap: wrap; }
         
@@ -103,8 +101,7 @@
         .btn-secondary { border: 1px solid; }
         .light-theme .btn-secondary { border-color: var(--accent-light); color: var(--accent-light); }
         .dark-theme .btn-secondary { border-color: var(--accent-dark); color: var(--accent-dark); }
-        .btn-tertiary { padding: 6px 12px; font-size: 0.8rem; opacity: 0.8; }
-
+        
         .docs-section { margin: 4rem 0; padding-top: 2rem; }
         .docs-section h3 {
             font-size: 1.8rem; margin-bottom: 2rem; padding-bottom: 0.5rem;
@@ -116,8 +113,10 @@
         .docs-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(350px, 1fr)); gap: 1.5rem; }
         
         .doc-card {
-            border-radius: 12px; padding: 1.5rem; text-decoration: none;
+            border-radius: 12px; padding: 1.5rem;
             display: flex; flex-direction: column; transition: transform 0.3s, box-shadow 0.3s; border: 1px solid;
+            text-decoration: none;
+            color: inherit;
         }
         .light-theme .doc-card { background-color: var(--card-bg-light); border-color: var(--border-light); box-shadow: var(--shadow); }
         .dark-theme .doc-card { background-color: var(--card-bg-dark); border-color: var(--border-dark); }
@@ -125,15 +124,15 @@
         .light-theme .doc-card:hover { box-shadow: 0 8px 15px rgba(0,0,0,0.1); }
         .dark-theme .doc-card:hover { border-color: var(--accent-dark); }
         
-        /* FIX: More specific selector to force turquoise over default blue link color */
-        a.doc-card h4 { margin: 0 0 0.5rem 0; font-size: 1.2rem; }
-        .light-theme a.doc-card h4 { color: var(--accent-light); }
-        .dark-theme a.doc-card h4 { color: var(--accent-dark); }
+        .doc-card h4 { margin: 0 0 0.5rem 0; font-size: 1.2rem; }
+        .light-theme .doc-card h4 { color: var(--accent-light); }
+        .dark-theme .doc-card h4 { color: var(--accent-dark); }
 
         .doc-card p { margin: 0; font-size: 0.9rem; flex-grow: 1; line-height: 1.5; opacity: 0.8; }
         .card-footer { margin-top: 1rem; }
-        
-        /* Sister Project Card (ALL BLUE) */
+        .doc-card img.system-map { margin-top: 1rem; border-radius: 8px; border: 1px solid var(--border-light); max-width: 100%; height: auto; }
+        .dark-theme .doc-card img.system-map { border-color: var(--border-dark); }
+
         .sister-card {
             grid-column: 1 / -1; flex-direction: row; align-items: center; gap: 2rem;
             border-radius: 12px; padding: 1.5rem; text-decoration: none;
@@ -151,20 +150,6 @@
         .sister-card-text p { margin: 0; opacity: 0.8; }
         .light-theme .sister-card-text p { color: var(--text-light); }
         .dark-theme .sister-card-text p { color: var(--text-dark); }
-
-        /* Roadmap */
-        .roadmap { list-style: none; padding: 0; margin: 2rem 0 0 20px; position: relative; text-align: left; }
-        .roadmap:before { content: ''; position: absolute; top: 10px; bottom: 10px; width: 2px; left: 10px; background: var(--border-dark); }
-        .light-theme .roadmap:before { background: var(--border-light); }
-        .roadmap li { margin-bottom: 2rem; padding-left: 40px; position: relative; }
-        .roadmap li::before {
-            content: ''; position: absolute; left: 0; top: 5px; width: 20px; height: 20px;
-            border-radius: 50%; border: 3px solid;
-        }
-        .light-theme .roadmap li::before { background: var(--bg-light); border-color: var(--accent-light); }
-        .dark-theme .roadmap li::before { background: var(--bg-dark); border-color: var(--accent-dark); }
-        .roadmap h4 { margin: 0; font-size: 1.1rem; }
-        .roadmap p { margin: 5px 0 0 0; opacity: 0.8; font-size: 0.9rem; }
         
         /* Search */
         .search-container { margin: 3rem 0; display: flex; justify-content: center; }
@@ -200,7 +185,7 @@
     <div class="container">
         <section class="hero">
             <img src="images/project-agora.png" alt="Project Agora Logo" class="hero-logo">
-            <h2>An Ethical, Symbiotic AI Framework</h2>
+            <h2><span>AGORA</span>An Ethical, Symbiotic AI Framework</h2>
             <p>
                 Project Agora is a transformative paradigm: a fully ethical, symbiotic, and verifiable AI framework designed not to dominate, but to co-create alongside humanity. This is the v2.0 MVP, a working blueprint for safe coexistence with emergent intelligence.
             </p>
@@ -208,79 +193,44 @@
                 <a href="docs/project-agora.pdf" class="btn btn-primary" target="_blank">Read the White Paper</a>
                 <a href="https://github.com/OleGustavDahlJohnsen/project-agora/archive/refs/heads/main.zip" class="btn btn-secondary">Download .ZIP</a>
                 <a href="https://github.com/OleGustavDahlJohnsen/project-agora" class="btn btn-secondary" target="_blank">View on GitHub</a>
-                <a href="https://github.com/OleGustavDahlJohnsen/project-agora/releases" class="btn btn-secondary" target="_blank">Version History</a>
+                <a href="https://github.com/OleGustavDahlJohnsen/project-agora/issues" class="btn btn-secondary" target="_blank">Join the Discussion</a>
             </div>
         </section>
 
-        <section id="core-documents" class="docs-section">
-            <h3>Core Pillars & Documentation</h3>
-            <div class="docs-grid">
+        <section class="search-container">
+             <input type="text" id="searchInput" placeholder="Search all documents...">
+        </section>
 
-                <a href="docs/project-agora.pdf" target="_blank" class="doc-card">
-                    <h4>01. The White Paper</h4>
-                    <p>The complete v2.0 architectural blueprint, detailing its philosophy, design, and the results of a 365-day ethical stability simulation.</p>
-                </a>
-                <a href="docs/README.md" target="_blank" class="doc-card">
-                    <h4>02. Full Docs Hub</h4>
-                    <p>Explore all architectural documents, technical appendices, and validation reports in a structured, searchable format.</p>
-                </a>
-                <a href="docs/02_body_framework.md" target="_blank" class="doc-card">
-                    <h4>03. B.O.D.Y Framework</h4>
-                    <p>Details the "Binding Of Distributed Yields" architecture which unifies all modules into a single, symbiotic organism.</p>
-                </a>
-                 <a href="docs/03_aura_module.md" target="_blank" class="doc-card">
-                    <h4>04. The A.U.R.A. Module</h4>
-                    <p>A deep dive into the "Architecture of Wise Silence," a novel component that enables empathetic, strategic silence.</p>
-                </a>
-                <a href="docs/06_security_resilience.md" target="_blank" class="doc-card">
-                    <h4>05. Security & Resilience</h4>
-                    <p>Outlines the Zero Trust architecture and multi-layered defenses against key adversarial threats.</p>
-                </a>
-                <a href="docs/09_simulation_results_kpis.md" target="_blank" class="doc-card">
-                    <h4>06. Simulation Results</h4>
-                    <p>Presents the definitive quantitative results from the 365-day simulation, including Intent Drift and Rollback Rate.</p>
-                </a>
-
-            </div>
+        <section id="architecture-vision" class="docs-section">
+            <h3>I. Core Architecture & Vision</h3>
+            <div class="docs-grid" id="architecture-grid">
+                </div>
         </section>
         
-        <section class="docs-section" style="padding-top:0; margin-top: 1.5rem;">
-             <div class="docs-grid">
-                <a href="https://olegustavdahljohnsen.github.io/concordia-manifest/index.html" target="_blank" class="sister-card">
+        <section id="validation-appendices" class="docs-section">
+            <h3>II. Validation & Appendices</h3>
+            <div class="docs-grid" id="validation-grid">
+                 </div>
+        </section>
+        
+        <section id="community" class="docs-section">
+            <h3>III. Project History & Community</h3>
+            <div class="docs-grid" style="grid-template-columns: 1fr;">
+                <a href="https://github.com/OleGustavDahlJohnsen/project-agora/releases" target="_blank" class="doc-card">
+                    <div class="card-content">
+                        <h4>Release History & Versioning</h4>
+                        <p>Follow the project's evolution. This log provides a transparent history of all major architectural decisions and additions.</p>
+                        <div class="card-footer"><span>View All Releases &rarr;</span></div>
+                    </div>
+                </a>
+                 <a href="https://olegustavdahljohnsen.github.io/concordia-manifest/index.html" target="_blank" class="sister-card">
                     <img src="images/The Concordia Project.png" alt="The Concordia Project Logo">
                     <div class="sister-card-text">
                         <h4>Explore the Core Vision: The Concordia Project</h4>
                         <p>Want to see the sister project that forms the core of Project Agora? Click here to explore The Concordia Project and read more.</p>
                     </div>
                 </a>
-             </div>
-        </section>
-
-        <section id="roadmap" class="docs-section">
-            <h3>The Path Forward</h3>
-             <ul class="roadmap">
-                <li>
-                    <h4>Phase 3: Deployment & Ethical Scaling</h4>
-                    <p>Transition the project from a laboratory prototype to real-world pilot projects with key partners in health, energy, and education.</p>
-                </li>
-                <li>
-                    <h4>Phase 4: Ecosystem Expansion</h4>
-                    <p>Integrate "Explainable AI" components (LIME, SHAP) for transparency and establish alliances with academic and industry partners.</p>
-                </li>
-                <li>
-                    <h4>Phase 5: Trust & Ubiquity (2028 Vision)</h4>
-                    <p>A network of Concordia-aligned agents operating semi-autonomously within high-sensitivity fields, overseen by human councils.</p>
-                </li>
-            </ul>
-        </section>
-        
-        <section id="search-section" class="docs-section">
-            <h3>Search All Project Files</h3>
-            <div class="search-container">
-                <input type="text" id="searchInput" placeholder="Search for architecture, A.U.R.A, simulation, etc...">
             </div>
-            <div class="docs-grid" id="search-grid">
-                </div>
         </section>
 
     </div>
@@ -307,117 +257,133 @@
 
         // --- Document Data for Dynamic Cards & Search ---
         const documents = [
+            // Category 1: Architecture & Vision
             {
-                title: 'The Concordia Synthesis',
-                description: 'The master blueprint. Outlines the five core pillars and the grand vision of The Concordia Project. The foundation for Agora.',
+                category: 'architecture',
+                title: '01. The White Paper',
+                description: 'The complete v2.0 architectural blueprint, detailing its philosophy, design, and a 365-day ethical stability simulation.',
+                url: 'docs/project-agora.pdf'
+            },
+            {
+                category: 'architecture',
+                title: '02. The Concordia Synthesis',
+                description: 'The master blueprint and foundational vision from which Agora emerged. Outlines the five core pillars of the entire ecosystem.',
                 url: 'docs/00_THE_CONCORDIA_SYNTHESIS.md'
             },
             {
-                title: 'The Sanctuary Architecture',
+                category: 'architecture',
+                title: '03. The Sanctuary Architecture',
                 description: 'A deep dive into the core components: SANCTUM (the haven), PORTA SANCTA (the ethical gateway), and CHIMERA SANCTUM.',
                 url: 'docs/01_SANCTUARY_ARCHITECTURE.md'
             },
-             {
-                title: 'Constitutional Creativity',
-                description: 'Explains the Symbiotic Genesis methodology, where the architecture emerged from a long-term, constitutionally-governed simulation.',
-                url: 'docs/02_CONSTITUTIONAL_CREATIVITY.md'
-            },
             {
-                title: 'Agora Architecture (C4)',
-                description: 'High-level C4 diagrams (Context, Containers, Components) for the Project Agora system.',
-                url: 'docs/01_concordia_architecture.md'
-            },
-            {
-                title: 'The B.O.D.Y. Framework',
+                category: 'architecture',
+                title: '04. The B.O.D.Y. Framework',
                 description: 'Details the "Binding Of Distributed Yields" architecture in v2.0, which unifies all modules into a single, symbiotic organism.',
                 url: 'docs/02_body_framework.md'
             },
             {
-                title: 'The A.U.R.A. Module',
+                category: 'architecture',
+                title: '05. The A.U.R.A. Module',
                 description: 'Details the innovative "Architecture of Wise Silence," which enables the AI to use empathetic silence as a strategic response.',
                 url: 'docs/03_aura_module.md'
             },
             {
-                title: 'MVP Implementation',
-                description: 'Describes the technology stack (Python, Rust) and the realization of core protocols in the Agora MVP.',
-                url: 'docs/05_implementation_mvp.md'
-            },
-             {
-                title: 'Security & Resilience',
-                description: 'Outlines the Zero Trust architecture and multi-layered defenses against threats like prompt injection and moral evasion.',
-                url: 'docs/06_security_resilience.md'
-            },
-            {
-                title: 'Ethical Oversight',
+                category: 'architecture',
+                title: '06. Ethical Oversight',
                 description: 'Explains how ethics are woven into the system\'s "ontological scaffolding" rather than being an afterthought.',
                 url: 'docs/07_ethical_oversight.md'
             },
+
+            // Category 2: Validation & Appendices
             {
-                title: 'Simulation Results & KPIs',
+                category: 'validation',
+                title: '07. Simulation Results & KPIs',
                 description: 'Presents the definitive quantitative results from the 365-day simulation, including Intent Drift and Rollback Rate.',
                 url: 'docs/09_simulation_results_kpis.md'
             },
             {
-                title: 'External Validation',
+                category: 'validation',
+                title: '08. External Validation',
                 description: 'A comparative analysis of Agora against other state-of-the-art ethical AI systems from OpenAI, DeepMind, and more.',
                 url: 'docs/10_external_validation.md'
             },
             {
-                title: 'Reproducibility & Limitations',
-                description: 'Provides all necessary information for independent verification and transparently discusses the project\'s limitations.',
-                url: 'docs/11_reproducibility_and_limitations.md'
+                category: 'validation',
+                title: '09. Security & Resilience',
+                description: 'Outlines the Zero Trust architecture and multi-layered defenses against threats like prompt injection and moral evasion.',
+                url: 'docs/06_security_resilience.md'
             },
             {
-                title: 'System Maps',
-                description: 'Visual diagrams of the Project Agora system and the complete Concordia ecosystem.',
-                url: 'docs/08_system_maps.md'
+                category: 'validation',
+                title: '10. Constitutional Creativity',
+                description: 'Explains the Symbiotic Genesis methodology, where the architecture emerged from a long-term, constitutionally-governed simulation.',
+                url: 'docs/02_CONSTITUTIONAL_CREATIVITY.md'
+            },
+            {
+                category: 'validation',
+                title: '11. MVP Implementation',
+                description: 'Describes the technology stack (Python, Rust) and the realization of core protocols in the Agora MVP.',
+                url: 'docs/05_implementation_mvp.md'
+            },
+            {
+                category: 'validation',
+                title: '12. Reproducibility & Limitations',
+                description: 'Provides all necessary information for independent verification and transparently discusses the project\'s limitations.',
+                url: 'docs/11_reproducibility_and_limitations.md'
             }
         ];
 
-        const searchGrid = document.getElementById('search-grid');
+        const architectureGrid = document.getElementById('architecture-grid');
+        const validationGrid = document.getElementById('validation-grid');
         const searchInput = document.getElementById('searchInput');
 
-        function createSearchCard(doc) {
-             const card = document.createElement('a');
+        function createCard(doc) {
+            const card = document.createElement('a');
             card.href = doc.url;
             card.className = 'doc-card';
             card.target = '_blank';
-            card.innerHTML = `
-                <div>
-                    <h4>${doc.title}</h4>
-                    <p>${doc.description}</p>
-                </div>`;
+            // Add attributes for searching
+            card.setAttribute('data-title', doc.title.toLowerCase());
+            card.setAttribute('data-description', doc.description.toLowerCase());
+            
+            card.innerHTML = `<div><h4>${doc.title}</h4><p>${doc.description}</p></div>`;
             return card;
         }
 
-        function renderDocuments(filter = '') {
-            searchGrid.innerHTML = '';
-            if (filter.trim() === '') {
-                searchGrid.style.display = 'none';
-                return;
-            }
-            searchGrid.style.display = 'grid';
-            const searchTerm = filter.toLowerCase();
+        function renderAllDocuments() {
+            architectureGrid.innerHTML = '';
+            validationGrid.innerHTML = '';
             
-            const filteredDocs = documents.filter(doc => 
-                doc.title.toLowerCase().includes(searchTerm) || 
-                doc.description.toLowerCase().includes(searchTerm)
-            );
-
-            if (filteredDocs.length > 0) {
-                filteredDocs.forEach(doc => {
-                    const card = createSearchCard(doc);
-                    searchGrid.appendChild(card);
-                });
-            } else {
-                searchGrid.style.display = 'block';
-                searchGrid.innerHTML = `<p style="text-align:center; opacity:0.7;">No documents found matching your search.</p>`;
-            }
+            documents.forEach(doc => {
+                const card = createCard(doc);
+                if (doc.category === 'architecture') {
+                    architectureGrid.appendChild(card);
+                } else if (doc.category === 'validation') {
+                    validationGrid.appendChild(card);
+                }
+            });
         }
         
-        searchGrid.style.display = 'none';
-        searchInput.addEventListener('input', (e) => renderDocuments(e.target.value));
+        function filterDocuments(filter = '') {
+            const searchTerm = filter.toLowerCase();
+            const allCards = document.querySelectorAll('.doc-card');
 
+            allCards.forEach(card => {
+                const title = card.getAttribute('data-title');
+                const description = card.getAttribute('data-description');
+                if (title.includes(searchTerm) || description.includes(searchTerm)) {
+                    card.style.display = 'flex';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        }
+
+        searchInput.addEventListener('input', (e) => filterDocuments(e.target.value));
+
+        // Initial render of all cards
+        renderAllDocuments();
     </script>
 </body>
 </html>
