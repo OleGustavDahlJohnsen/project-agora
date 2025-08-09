@@ -1,11 +1,11 @@
 # -*- coding: utf-8 -*-
 """
-This file will contain the software interface for the CTL (Causal Traceability 
-Ledger). While the core ledger is hardware-accelerated, this module will 
-provide the API for writing to, and securely exporting data from, the 
-immutable log. It ensures that every significant decision is cryptographically 
-logged for auditing and verifiability.
+Provides the software interface to the hardware-accelerated CTL
+(Causal Traceability Ledger).
 """
+import hashlib
+import json
+from datetime import datetime, timezone
 from typing import Any, Dict
 
 class CausalTraceabilityLedger:
@@ -16,38 +16,40 @@ class CausalTraceabilityLedger:
         """
         Initializes the connection to the CTL hardware.
         """
-        print("CTL Interface initialized.")
+        self._log_chain = []
+        print("CTL (Causal Traceability Ledger) Interface Initialized.")
 
-    def log_decision(self, actor: str, decision: str, context: Dict[str, Any], justification: str) -> str:
+    def log_event(self, actor: str, event: str, context: Dict[str, Any], outcome: str) -> str:
         """
-        Logs a decision to the immutable ledger.
-        
+        Logs an event and its context to the immutable ledger.
+
+        Args:
+            actor (str): The module or entity performing the action.
+            event (str): The name of the event/action being logged.
+            context (Dict): Supporting data about the event.
+            outcome (str): The result of the event.
+
         Returns:
-            str: A unique transaction hash for the logged entry.
+            str: The SHA-256 hash of the new log entry, serving as its ID.
         """
-        log_entry = {
+        timestamp = datetime.now(timezone.utc).isoformat()
+        
+        # In a real system, previous_hash would come from the last hardware entry.
+        previous_hash = self._log_chain[-1]['hash'] if self._log_chain else '0' * 64
+        
+        entry = {
+            "timestamp": timestamp,
+            "previous_hash": previous_hash,
             "actor": actor,
-            "decision": decision,
+            "event": event,
             "context": context,
-            "justification": justification
+            "outcome": outcome,
         }
-        print(f"Logging decision by {actor} to CTL.")
-        # Placeholder for hashing and writing to the hardware commit buffer
-        transaction_hash = "mock_hash_" + str(hash(str(log_entry)))
-        return transaction_hash
-
-    def export_log(self, format: str = 'json') -> str:
-        """
-        Exports the entire log in a specified, secure format.
-        """
-        print(f"Exporting CTL log as {format}.")
-        # Placeholder for secure export logic
-        return "{'log': 'mock_data'}"
-
-    def verify_chain_integrity(self) -> bool:
-        """
-        Verifies the cryptographic integrity of the entire log chain.
-        """
-        print("Verifying CTL chain integrity...")
-        # Placeholder for Merkle-DAG verification
-        return True
+        
+        # The hashing would be offloaded to a crypto accelerator.
+        entry_bytes = json.dumps(entry, sort_keys=True).encode('utf-8')
+        entry['hash'] = hashlib.sha256(entry_bytes).hexdigest()
+        
+        self._log_chain.append(entry)
+        print(f"CTL: Event '{event}' by '{actor}' logged with hash {entry['hash'][:10]}...")
+        return entry['hash']
