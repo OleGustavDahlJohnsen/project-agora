@@ -1,41 +1,53 @@
 # -*- coding: utf-8 -*-
 """
-This file will implement the SMSL (SensorMesh Synesthesia Layer). This acts 
-as the high-level protocol layer that standardizes the fused data from the 
-SPU into a Unified Perceptual Field (UPF). It ensures that perceptual data 
-is consistent and ready for consumption by other cognitive modules.
+Implements the SMSL (SensorMesh Synesthesia Layer) to create the UPF.
 """
 from typing import Any, Dict
-from csnp_layer import CSNPLayer
+# We anticipate the CSNP layer and a UPF schema definition.
+# from .csnp_layer import CSNPLayer
+# from .schemas.upf_schema import UPFSchema, validate_upf
 
 class SensorMeshSynesthesiaLayer:
     """
-    Standardizes fused sensor data into the Unified Perceptual Field (UPF).
+    Standardizes fused data into the Unified Perceptual Field (UPF) and
+    broadcasts it.
     """
-    def __init__(self, csnp_interface: CSNPLayer):
+    def __init__(self, csnp_interface: 'CSNPLayer'):
         """
-        Initializes the SMSL.
+        Initializes the SMSL with a communication layer interface.
         """
         self.csnp = csnp_interface
-        print("SMSL Initialized.")
+        print("SMSL (SensorMesh Synesthesia Layer) Initialized.")
 
-    def package_as_upf(self, fused_data: Dict) -> Dict:
+    def _package_as_upf(self, fused_data: Dict) -> Dict:
         """
-        Packages fused sensor data into the standard UPF format.
+        Private method to package fused data into the standard UPF format.
         """
-        print("Packaging data as UPF.")
         upf_packet = {
-            "version": "1.0",
-            "timestamp": "mock_timestamp",
+            "upf_version": "2.0",
+            "packet_id": "mock_uuid",
             "source_node": self.csnp.node_id,
-            "perceptual_data": fused_data
+            "timestamp_utc": fused_data.get("timestamp"),
+            "perceptual_field": fused_data
         }
+        
+        # Placeholder for schema validation
+        # if not validate_upf(upf_packet):
+        #     raise ValueError("Generated UPF packet is invalid.")
+            
         return upf_packet
 
-    def broadcast_upf(self, upf_packet: Dict):
+    def process_fused_data(self, fused_data: Dict):
         """
-        Broadcasts the UPF packet to relevant nodes over the CSNP.
+        Receives fused data from the SPU, packages it, and broadcasts it.
         """
-        print("Broadcasting UPF to cognitive modules.")
-        # QoS level 3 for Perception data
-        self.csnp.send_data(target_node_id="cognitive_bus", data=upf_packet, qos_level=3)
+        print("SMSL: Packaging fused data into UPF...")
+        upf_packet = self._package_as_upf(fused_data)
+        
+        print("SMSL: Broadcasting UPF to cognitive modules via CSNP.")
+        # QoS level 3 (Perception) is critical for this data.
+        self.csnp.send_data(
+            target_node_id="cognitive_bus", 
+            data=upf_packet, 
+            qos_level=3 # QoSLevel.PERCEPTION
+        )
