@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Project Agora v2.0</title>
+    <title>Project Agora v2.1</title>
     <link rel="icon" href="images/project-agora.ico" type="image/x-icon">
     <style>
         :root {
@@ -129,6 +129,8 @@
         .dark-theme a.doc-card h4 { color: var(--accent-dark); }
 
         .doc-card p { margin: 0; font-size: 0.9rem; flex-grow: 1; line-height: 1.5; opacity: 0.8; }
+        .card-footer { display: flex; gap: 0.5rem; align-items: center; flex-wrap: wrap; margin-top: 1rem; }
+        .btn-tertiary { padding: 6px 12px; font-size: 0.8rem; opacity: 0.8; }
         
         .sister-card {
             grid-column: 1 / -1; flex-direction: row; align-items: center; gap: 2rem;
@@ -149,15 +151,18 @@
         .dark-theme .sister-card-text p { color: var(--text-dark); }
 
         /* System Map Section */
-         .system-map-container { display: flex; gap: 2rem; align-items: flex-start; flex-wrap: wrap; }
-         .system-map-item { flex: 1; min-width: 300px; text-align: center; }
-         .system-map-item img {
-            max-width: 100%; height: auto; border-radius: 12px;
-            border: 1px solid var(--border-dark); margin-bottom: 1rem;
-         }
-         .light-theme .system-map-item img { border-color: var(--border-light); }
-         .system-map-item h4 { font-size: 1.2rem; margin-bottom: 0.5rem; }
-         .system-map-item p { font-size: 0.9rem; opacity: 0.8; }
+          .system-map-container { display: flex; gap: 2rem; align-items: flex-start; flex-wrap: wrap; }
+          .system-map-item { flex: 1; min-width: 300px; text-align: center; }
+          .system-map-item img {
+             max-width: 100%; height: auto; border-radius: 12px;
+             border: 1px solid var(--border-dark); margin-bottom: 1rem;
+           }
+          .light-theme .system-map-item img { border-color: var(--border-light); }
+          .system-map-item h4 { font-size: 1.2rem; margin-bottom: 0.5rem; }
+          .system-map-item p { font-size: 0.9rem; opacity: 0.8; }
+          .doc-card img.system-map-card { margin-top: 1rem; border-radius: 8px; border: 1px solid var(--border-dark); max-width: 100%; height: auto; }
+          .light-theme .doc-card img.system-map-card { border-color: var(--border-light); }
+
         
         /* Search */
         .search-container { margin: 3rem 0; display: flex; justify-content: center; }
@@ -180,7 +185,7 @@
     <header>
         <div class="title-version">
             <h1>Project Agora</h1>
-            <span>v2.0</span>
+            <span>v2.1</span>
         </div>
         <div class="theme-switch-wrapper">
             <label class="theme-switch" for="checkbox">
@@ -195,13 +200,32 @@
             <img src="images/project-agora.png" alt="Project Agora Logo" class="hero-logo">
             <h2><span>AGORA</span>An Ethical, Symbiotic AI Framework</h2>
             <p>
-                Project Agora is a transformative paradigm: a fully ethical, symbiotic, and verifiable AI framework designed not to dominate, but to co-create alongside humanity. This is the v2.0 MVP, a working blueprint for safe coexistence with emergent intelligence.
+                Project Agora is the practical implementation of the Concordia vision. This v2.1 Pre-Alpha release introduces the comprehensive architectural skeleton for Shofar v2.0, the ecosystem's distributed nervous system, aligning the project with the latest Concordia v8.3 canon.
             </p>
             <div class="hero-buttons">
                 <a href="docs/project-agora.pdf" class="btn btn-primary" target="_blank">Read the White Paper</a>
                 <a href="https://github.com/OleGustavDahlJohnsen/project-agora/archive/refs/heads/main.zip" class="btn btn-secondary">Download .ZIP</a>
                 <a href="https://github.com/OleGustavDahlJohnsen/project-agora" class="btn btn-secondary" target="_blank">View on GitHub</a>
                 <a href="https://github.com/OleGustavDahlJohnsen/project-agora/issues" class="btn btn-secondary" target="_blank">Join the Discussion</a>
+            </div>
+        </section>
+
+        <section id="featured-implementations" class="docs-section">
+            <h3>Featured Implementations</h3>
+            <div class="docs-grid" style="grid-template-columns: 1fr;">
+                <div class="doc-card">
+                    <div style="display: flex; gap: 1.5rem; align-items: center; margin-bottom: 1rem;">
+                        <img src="https://raw.githubusercontent.com/OleGustavDahlJohnsen/concordia-manifest/main/Shofar_v2.0_Concept/shofar-v2-logo.png" alt="Shofar v2.0 Logo" style="max-width: 150px; height: auto; align-self: center;">
+                        <div>
+                            <h4>Shofar v2.0: The Distributed Nervous System</h4>
+                            <p>The new hardware foundation for the ecosystem. This module provides the complete implementation skeleton for Shofar v2.0, a distributed, scalable "nervous system" designed to achieve scaled ethics. It includes the core pipeline, security modules, policy studio, and interoperability bridges.</p>
+                        </div>
+                    </div>
+                    <img src="https://raw.githubusercontent.com/OleGustavDahlJohnsen/concordia-manifest/main/Shofar_v2.0_Concept/shofar-v2-system-map.png" alt="Shofar v2.0 System Map" class="system-map-card">
+                    <div class="card-footer">
+                        <a href="https://github.com/OleGustavDahlJohnsen/concordia-manifest/raw/main/Shofar_v2.0_Concept/shofar-v2.pdf" class="btn btn-primary" target="_blank">Read the PDF</a>
+                    </div>
+                </div>
             </div>
         </section>
 
@@ -259,7 +283,7 @@
     </div>
 
     <footer>
-        <p>&copy; 2025 Ole Gustav Dahl Johnsen & The Concordia AI Council. Licensed under Apache-2.0. | Project Agora v2.0</p>
+        <p>&copy; 2025 Ole Gustav Dahl Johnsen & The Concordia AI Council. Licensed under Apache-2.0. | Project Agora v2.1</p>
     </footer>
 
     <script>
@@ -281,6 +305,12 @@
         // --- Document Data for Dynamic Cards & Search ---
         const documents = [
             // Category 1: Architecture & Vision
+            {
+                category: 'architecture',
+                title: 'Shofar v2.0 - The Distributed Nervous System',
+                description: 'The complete technical whitepaper for the modular hardware extension designed to achieve "scaled ethics" across the entire ecosystem. Resides in the Concordia Manifest.',
+                url: 'https://github.com/OleGustavDahlJohnsen/concordia-manifest/blob/main/Shofar_v2.0_Concept/shofar-v2-specification.md'
+            },
             {
                 category: 'architecture',
                 title: '01. The Concordia Synthesis',
