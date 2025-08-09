@@ -1,45 +1,54 @@
 # -*- coding: utf-8 -*-
 """
-This file will contain the implementation for the SPU (Synesthesia Processing
-Unit). Its core responsibility is to perform complex, causal fusion of 
-multimodal data streams (e.g., audio, visual, LiDAR). It translates raw 
-sensory input into a coherent, holistic perceptual field for the A.D.A.M. 
-system to interpret.
+Implements the SPU (Synesthesia Processing Unit) for multimodal sensor fusion.
 """
 from typing import Any, Dict, List
-from smsl import SensorMeshSynesthesiaLayer
+# We anticipate the SMSL module will be used to handle the output.
+# from .smsl import SensorMeshSynesthesiaLayer
 
 class SynesthesiaProcessingUnit:
     """
-    Fuses multimodal sensor data into a single, coherent perception.
+    Fuses raw, heterogeneous sensor streams into a unified perception.
     """
-    def __init__(self, smsl_interface: SensorMeshSynesthesiaLayer):
+    def __init__(self, smsl_interface: 'SensorMeshSynesthesiaLayer'):
         """
-        Initializes the SPU.
+        Initializes the SPU, linking it to the SMSL for output dispatch.
         """
         self.smsl = smsl_interface
-        print("SPU Initialized.")
+        self.active_streams: List[str] = []
+        print("SPU (Synesthesia Processing Unit) Initialized.")
 
-    def fuse_streams(self, streams: List[Dict]) -> Dict:
+    def add_sensor_stream(self, sensor_id: str, config: Dict):
         """
-        Takes a list of raw data streams and fuses them.
-        
+        Registers a new sensor stream for the SPU to process.
+        """
+        self.active_streams.append(sensor_id)
+        print(f"Sensor stream '{sensor_id}' added to SPU for processing.")
+
+    def fuse_streams(self, raw_data_batch: List[Dict]) -> Dict:
+        """
+        Takes a batch of raw data from multiple streams and fuses them
+        into a single, causally-weighed perception.
+
         Args:
-            streams (List[Dict]): A list of sensor data objects.
-            
+            raw_data_batch (List[Dict]): A list of data packets, each from a
+                                         different sensor stream.
+
         Returns:
-            Dict: A single dictionary representing the fused perception.
+            Dict: A dictionary representing the single, fused perception.
         """
-        print(f"Fusing {len(streams)} sensory streams.")
-        # Placeholder for complex sensor fusion logic
+        print(f"SPU: Fusing {len(raw_data_batch)} raw data streams...")
+        
+        # Placeholder for sophisticated sensor fusion logic.
+        # This would involve weighing streams based on confidence, context, etc.
         fused_perception = {
-            "primary_object": "human",
-            "location": "3m away",
-            "ambient_sound": "calm"
+            "timestamp": "2025-08-09T02:15:43Z",
+            "primary_entity": {"type": "human", "confidence": 0.98},
+            "ambient_audio": {"profile": "quiet conversation", "level_db": -25},
+            "spatial_awareness": {"closest_object_m": 2.5}
         }
         
-        # Package and broadcast the result
-        upf_packet = self.smsl.package_as_upf(fused_perception)
-        self.smsl.broadcast_upf(upf_packet)
+        # Pass the fused result to the SMSL to be packaged as a UPF
+        self.smsl.process_fused_data(fused_perception)
         
         return fused_perception
