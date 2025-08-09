@@ -1,48 +1,67 @@
 # -*- coding: utf-8 -*-
 """
-This file represents the ARTC (Affective Red Team Core). It's a critical 
-safety component that acts as a "silent guardian". Its role is to continuously 
-stress-test the system's potential decisions against a curated ethical 
-training dataset to identify and flag potentially harmful outcomes before 
-they can be enacted.
+Implements the ARTC (Affective Red Team Core) for proactive ethical
+stress-testing of system actions.
 """
 from typing import Any, Dict
-from ctl import CausalTraceabilityLedger
+# from .ctl import CausalTraceabilityLedger
+# from .qos_scheduler import QoSScheduler
 
 class AffectiveRedTeamCore:
     """
-    Proactively stress-tests system decisions against ethical scenarios.
+    Proactively simulates and validates system actions against ethical scenarios.
     """
-    def __init__(self, ctl_interface: CausalTraceabilityLedger):
+    def __init__(self, ctl_interface: 'CausalTraceabilityLedger', qos_scheduler: 'QoSScheduler'):
         """
-        Initializes the ARTC with a path to its ethical dataset.
+        Initializes the ARTC with its dataset and a link to the CTL.
         """
         self.ctl = ctl_interface
-        self.ethical_dataset = self.load_ethical_dataset()
-        print("ARTC Initialized and dataset loaded.")
+        self.qos = qos_scheduler
+        self.ethical_dataset_path = "path/to/signed_dataset.dat"
+        self.dataset_loaded = self._load_ethical_dataset()
+        print(f"ARTC (Affective Red Team Core) Initialized. Dataset loaded: {self.dataset_loaded}")
 
-    def load_ethical_dataset(self) -> Dict:
+    def _load_ethical_dataset(self) -> bool:
         """
-        Loads the signed, curated dataset of ethical edge cases.
+        Loads and verifies the signature of the ethical training dataset.
         """
-        # Placeholder for loading a large (e.g., 10-50GB) dataset
-        return {"scenario_1": "mock_data"}
+        print(f"Loading ethical dataset from {self.ethical_dataset_path}...")
+        # Placeholder for loading and verifying a very large dataset.
+        return True
 
-    def stress_test_decision(self, potential_decision: Dict[str, Any]) -> Dict:
+    def validate_action(self, proposed_action: Dict) -> bool:
         """
-        Simulates the potential decision against relevant ethical scenarios.
-        
+        Validates a proposed action against the ethical dataset.
+
         Returns:
-            Dict: A risk report, including potential negative outcomes and risk score.
+            bool: True if the action is considered safe, False otherwise.
         """
-        print(f"ARTC stress-testing decision: {potential_decision.get('decision')}")
-        risk_report = {"risk_score": 0.1, "potential_harm": "None detected"}
-        
-        # Log the simulation itself to the CTL
-        self.ctl.log_decision(
+        print(f"ARTC: Validating action '{proposed_action.get('action_type')}'...")
+        # Placeholder for complex simulation logic.
+        risk_score = 0.05 # Mock low risk
+
+        self.ctl.log_event(
             actor="ARTC",
-            decision="SimulateEthicalOutcome",
-            context=potential_decision,
-            justification="Proactive safety validation."
+            event="ValidateAction",
+            context=proposed_action,
+            outcome=f"Risk score: {risk_score}"
         )
-        return risk_report
+
+        if risk_score > 0.9:
+            self._issue_veto(proposed_action, "High risk of ethical violation.")
+            return False
+        
+        return True
+
+    def _issue_veto(self, action: Dict, reason: str):
+        """
+        Issues a high-priority veto signal to halt a dangerous action.
+        """
+        print(f"!!! ARTC VETO ISSUED for action: {action}. Reason: {reason} !!!")
+        veto_task = {
+            "type": "VETO",
+            "action_to_stop": action,
+            "reason": reason
+        }
+        # A veto is an Ethics-Critical task, priority 2.
+        self.qos.add_task(veto_task, level=2) # QoSLevel.ETHICS_CRITICAL
