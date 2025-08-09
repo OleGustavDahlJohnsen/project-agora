@@ -129,8 +129,6 @@
         .dark-theme a.doc-card h4 { color: var(--accent-dark); }
 
         .doc-card p { margin: 0; font-size: 0.9rem; flex-grow: 1; line-height: 1.5; opacity: 0.8; }
-        .card-footer { display: flex; gap: 0.5rem; align-items: center; flex-wrap: wrap; margin-top: 1rem; }
-        .btn-tertiary { padding: 6px 12px; font-size: 0.8rem; opacity: 0.8; }
         
         .sister-card {
             grid-column: 1 / -1; flex-direction: row; align-items: center; gap: 2rem;
@@ -151,18 +149,15 @@
         .dark-theme .sister-card-text p { color: var(--text-dark); }
 
         /* System Map Section */
-          .system-map-container { display: flex; gap: 2rem; align-items: flex-start; flex-wrap: wrap; }
-          .system-map-item { flex: 1; min-width: 300px; text-align: center; }
+          .system-map-container { display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 2rem; align-items: start; }
+          .system-map-item { flex: 1; min-width: 300px; text-align: center; display: flex; flex-direction: column; align-items: center; }
           .system-map-item img {
              max-width: 100%; height: auto; border-radius: 12px;
              border: 1px solid var(--border-dark); margin-bottom: 1rem;
            }
           .light-theme .system-map-item img { border-color: var(--border-light); }
           .system-map-item h4 { font-size: 1.2rem; margin-bottom: 0.5rem; }
-          .system-map-item p { font-size: 0.9rem; opacity: 0.8; }
-          .doc-card img.system-map-card { margin-top: 1rem; border-radius: 8px; border: 1px solid var(--border-dark); max-width: 100%; height: auto; }
-          .light-theme .doc-card img.system-map-card { border-color: var(--border-light); }
-
+          .system-map-item p { font-size: 0.9rem; opacity: 0.8; margin-bottom: 1.5rem; }
         
         /* Search */
         .search-container { margin: 3rem 0; display: flex; justify-content: center; }
@@ -210,37 +205,24 @@
             </div>
         </section>
 
-        <section id="featured-implementations" class="docs-section">
-            <h3>Featured Implementations</h3>
-            <div class="docs-grid" style="grid-template-columns: 1fr;">
-                <div class="doc-card">
-                    <div style="display: flex; gap: 1.5rem; align-items: center; margin-bottom: 1rem;">
-                        <img src="https://raw.githubusercontent.com/OleGustavDahlJohnsen/concordia-manifest/main/Shofar_v2.0_Concept/shofar-v2-logo.png" alt="Shofar v2.0 Logo" style="max-width: 150px; height: auto; align-self: center;">
-                        <div>
-                            <h4>Shofar v2.0: The Distributed Nervous System</h4>
-                            <p>The new hardware foundation for the ecosystem. This module provides the complete implementation skeleton for Shofar v2.0, a distributed, scalable "nervous system" designed to achieve scaled ethics. It includes the core pipeline, security modules, policy studio, and interoperability bridges.</p>
-                        </div>
-                    </div>
-                    <img src="https://raw.githubusercontent.com/OleGustavDahlJohnsen/concordia-manifest/main/Shofar_v2.0_Concept/shofar-v2-system-map.png" alt="Shofar v2.0 System Map" class="system-map-card">
-                    <div class="card-footer">
-                        <a href="https://github.com/OleGustavDahlJohnsen/concordia-manifest/raw/main/Shofar_v2.0_Concept/shofar-v2.pdf" class="btn btn-primary" target="_blank">Read the PDF</a>
-                    </div>
-                </div>
-            </div>
-        </section>
-
         <section id="system-maps" class="docs-section">
             <h3>Ecosystem at a Glance</h3>
             <div class="system-map-container">
                 <div class="system-map-item">
                      <img src="images/project-agora-system-map.png" alt="Project Agora System Map">
                      <h4>Project Agora System Map</h4>
-                     <p>Illustrates the core architecture of Project Agora, showing how each major component of the B.O.D.Y. framework interconnects to form a cohesive whole.</p>
+                     <p>Illustrates the core architecture of Project Agora, showing how each major component of the B.O.D.Y. framework interconnects.</p>
+                </div>
+                <div class="system-map-item">
+                     <img src="https://raw.githubusercontent.com/OleGustavDahlJohnsen/concordia-manifest/main/Shofar_v2.0_Concept/shofar-v2-system-map.png" alt="Shofar v2.0 System Map">
+                     <h4>Shofar v2.0 Architecture</h4>
+                     <p>The new hardware foundation. A distributed "nervous system" designed for scaled ethics. Click below to read the full specification.</p>
+                     <a href="https://github.com/OleGustavDahlJohnsen/concordia-manifest/raw/main/Shofar_v2.0_Concept/shofar-v2.pdf" class="btn btn-primary" target="_blank" style="margin-top: auto;">Read the PDF</a>
                 </div>
                 <div class="system-map-item">
                      <img src="images/the-complete-concordia-synthesis.png" alt="The Complete Concordia System Map">
                      <h4>The Complete Ecosystem</h4>
-                     <p>Presents the entire Concordia–Agora ecosystem, showing how Agora functions as the central orchestration layer within the multi-layered governance framework.</p>
+                     <p>Presents the entire Concordia–Agora ecosystem, showing how Agora functions as the central orchestration layer.</p>
                 </div>
             </div>
         </section>
