@@ -1,47 +1,50 @@
 # -*- coding: utf-8 -*-
 """
-This file will house the logic for the TMW-E (Temporal Memory Weaving 
-Engine). This serves as A.D.A.M.'s long-term memory. Its function is to 
-weave current sensory input together with historical events into a complex, 
-searchable causal graph, operating with adaptive resolution to prioritize 
-significant memories.
+Implements the TMW-E (Temporal Memory Weaving Engine) for long-term memory.
 """
-from typing import Any, Dict
-from ctl import CausalTraceabilityLedger
+from typing import Dict, List
+# from .ctl import CausalTraceabilityLedger
 
 class TemporalMemoryWeavingEngine:
     """
-    Manages the long-term, context-aware memory of the AI.
+    Manages the long-term, context-aware causal memory graph of the AI.
     """
-    def __init__(self, ctl_interface: CausalTraceabilityLedger):
+    def __init__(self, ctl_interface: 'CausalTraceabilityLedger'):
         """
-        Initializes the memory engine.
+        Initializes the memory engine and its connection to the CTL.
         """
-        self.memory_graph = {}
+        self.memory_graph = {}  # In reality, this would be a sophisticated graph database.
         self.ctl = ctl_interface
-        print("TMW-E Initialized.")
+        print("TMW-E (Temporal Memory Weaving Engine) Initialized.")
 
-    def store_event(self, event_data: Dict, emotional_tag: float):
+    def process_and_store(self, upf_packet: Dict, social_context: Dict):
         """
-        Stores an event in the memory graph with adaptive resolution based
-        on its emotional or causal significance.
+        Processes a new event and decides how to store it based on significance.
         """
-        print(f"TMW-E storing event with emotional tag {emotional_tag}.")
-        # Placeholder for graph storage logic
-        event_id = "event_" + str(hash(str(event_data)))
-        self.memory_graph[event_id] = event_data
+        significance_score = self._calculate_significance(upf_packet, social_context)
         
-        self.ctl.log_decision(
-            actor="TMW-E",
-            decision="StoreMemory",
-            context={"event_id": event_id, "emotional_tag": emotional_tag},
-            justification="Archiving significant event."
-        )
+        print(f"TMW-E: Storing event with significance score {significance_score:.2f}.")
+        
+        # Placeholder for adaptive resolution logic.
+        if significance_score > 0.7:
+            # Store with high fidelity
+            self._store_event(upf_packet, "high_fidelity")
+        else:
+            # Compress and store
+            self._store_event(upf_packet, "compressed")
+    
+    def _calculate_significance(self, upf: Dict, context: Dict) -> float:
+        """Calculates the causal/emotional significance of an event."""
+        # Mock significance based on detected emotion
+        return context.get("social_signal_confidence", 0.5)
 
-    def retrieve_context(self, query_event: Dict) -> Dict:
-        """
-        Retrieves relevant past events and context related to a query.
-        """
-        print("TMW-E retrieving context...")
-        # Placeholder for contextual graph search
-        return {"retrieved_event": "mock_past_event"}
+    def _store_event(self, data: Dict, resolution: str):
+        """Stores an event in the memory graph."""
+        event_id = data.get("packet_id", "mock_id")
+        self.memory_graph[event_id] = {"resolution": resolution, "data": data}
+        self.ctl.log_event(
+            actor="TMW-E",
+            event="StoreMemory",
+            context={"event_id": event_id, "resolution": resolution},
+            outcome="Success"
+        )
