@@ -29,6 +29,9 @@
             --concordia-blue-light: #1a73e8;
             --concordia-blue-dark: #8ab4f8;
 
+            /* Specific Amber for Hardware Card */
+            --hardware-amber: #ffbf00;
+
             --shadow: 0 4px 6px rgba(0,0,0,0.1);
         }
 
@@ -39,6 +42,10 @@
             margin: 0;
             padding: 0;
             transition: background-color 0.3s, color 0.3s;
+            background-image: url('images/background-cyan.png');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
         }
 
         .light-theme { background-color: var(--bg-light); color: var(--text-light); }
@@ -134,30 +141,41 @@
             grid-column: 1 / -1; flex-direction: row; align-items: center; gap: 2rem;
             border-radius: 12px; padding: 1.5rem; text-decoration: none;
             display: flex; transition: transform 0.3s, box-shadow 0.3s; border: 1px solid;
+            margin-top: 1.5rem;
         }
         .light-theme .sister-card { background-color: var(--card-bg-light); border-color: var(--border-light); box-shadow: var(--shadow); }
         .dark-theme .sister-card { background-color: var(--card-bg-dark); border-color: var(--border-dark); }
         .sister-card:hover { transform: translateY(-5px); }
-        .light-theme .sister-card:hover { box-shadow: 0 8px 15px rgba(0,0,0,0.1); border-color: var(--concordia-blue-light); }
-        .dark-theme .sister-card:hover { border-color: var(--concordia-blue-dark); }
+        
         .sister-card img { max-width: 100px; height: auto; border-radius: 8px; }
-        .sister-card-text h4 { margin: 0 0 0.5rem 0; font-size: 1.2rem; }
-        .light-theme .sister-card-text h4 { color: var(--concordia-blue-light); }
-        .dark-theme .sister-card-text h4 { color: var(--concordia-blue-dark); }
         .sister-card-text p { margin: 0; opacity: 0.8; }
         .light-theme .sister-card-text p { color: var(--text-light); }
         .dark-theme .sister-card-text p { color: var(--text-dark); }
+        .sister-card-text h4 { margin: 0 0 0.5rem 0; font-size: 1.2rem; }
+        
+        /* Concordia Card Specifics */
+        .light-theme .concordia-card:hover { border-color: var(--concordia-blue-light); }
+        .dark-theme .concordia-card:hover { border-color: var(--concordia-blue-dark); }
+        .light-theme .concordia-card .sister-card-text h4 { color: var(--concordia-blue-light); }
+        .dark-theme .concordia-card .sister-card-text h4 { color: var(--concordia-blue-dark); }
+
+        /* Hardware Card Specifics */
+        .light-theme .hardware-card:hover { border-color: var(--hardware-amber); }
+        .dark-theme .hardware-card { box-shadow: 0 0 15px rgba(255, 191, 0, 0.2); }
+        .dark-theme .hardware-card:hover { border-color: var(--hardware-amber); box-shadow: 0 0 25px rgba(255, 191, 0, 0.4); }
+        .hardware-card .sister-card-text h4 { color: var(--hardware-amber); }
+        
 
         /* System Map Section */
-          .system-map-container { display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 2rem; align-items: start; }
-          .system-map-item { flex: 1; min-width: 300px; text-align: center; display: flex; flex-direction: column; align-items: center; }
-          .system-map-item img {
+         .system-map-container { display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 2rem; align-items: start; }
+         .system-map-item { flex: 1; min-width: 300px; text-align: center; display: flex; flex-direction: column; align-items: center; }
+         .system-map-item img {
              max-width: 100%; height: auto; border-radius: 12px;
              border: 1px solid var(--border-dark); margin-bottom: 1rem;
            }
-          .light-theme .system-map-item img { border-color: var(--border-light); }
-          .system-map-item h4 { font-size: 1.2rem; margin-bottom: 0.5rem; }
-          .system-map-item p { font-size: 0.9rem; opacity: 0.8; margin-bottom: 1.5rem; }
+         .light-theme .system-map-item img { border-color: var(--border-light); }
+         .system-map-item h4 { font-size: 1.2rem; margin-bottom: 0.5rem; }
+         .system-map-item p { font-size: 0.9rem; opacity: 0.8; margin-bottom: 1.5rem; }
         
         /* Search */
         .search-container { margin: 3rem 0; display: flex; justify-content: center; }
@@ -253,12 +271,20 @@
                         <div class="card-footer"><span>View All Releases &rarr;</span></div>
                     </div>
                 </a>
-                 <a href="https://olegustavdahljohnsen.github.io/concordia-manifest/index.html" target="_blank" class="sister-card">
+                 <a href="https://olegustavdahljohnsen.github.io/concordia-manifest/index.html" target="_blank" class="sister-card concordia-card">
                     <img src="images/The Concordia Project.png" alt="The Concordia Project Logo">
                     <div class="sister-card-text">
                         <h4>Explore the Core Vision: The Concordia Project</h4>
                         <p>Want to see the sister project that forms the core of Project Agora? Click here to explore The Concordia Project and read more.</p>
                     </div>
+                </a>
+                <a href="https://olegustavdahljohnsen.github.io/project-agora/enterprise-shofar-ultra/index.html" target="_blank" class="sister-card hardware-card">
+                    <img src="images/enterprise-shofar-edition-ultra-3.png" alt="Enterprise Shofar Ultra Hardware">
+                    <div class="sister-card-text">
+                        <h4>Behold the Engine: The Shofar Hardware Platform</h4>
+                        <p>Curious about the ethical silicon powering this vision? Visit the home of Obsidian Wolf Systems to see the machine we build.</p>
+                    </div>
+                    <img src="images/obsidian-wolf.png" alt="Obsidian Wolf Systems Logo" style="max-width: 80px; height: auto; margin-left: auto;">
                 </a>
             </div>
         </section>
