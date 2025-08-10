@@ -1,6 +1,8 @@
 # Project Agora
 
-**The v8.3 Pre-Alpha build of the Concordia framework.** An ethical, symbiotic AI designed to foster and protect human flourishing.
+![Project Agora Logo](Project%20Agora.png)
+
+**An Architectural Blueprint for a Symbiotic, Ethical, and Verifiable AI.**
 
 **Project Status: v8.3 Architectural Scaffolding in Progress**
 
@@ -44,6 +46,7 @@ pip install -r requirements.txt
 4. Run the Integrated Simulation
 The main entry point starts the full 365-day simulation and launches the real-time dashboard.
 python src/app/main.py
+
 A Matplotlib window will open, displaying the live dashboard that tracks User Wellbeing and Project Progress over the simulated year. The console will output a detailed log for each simulated day.
 
 Running the Test Suite
