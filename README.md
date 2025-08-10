@@ -1,6 +1,6 @@
 # Project Agora
 
-![Project Agora Logo](Project%20Agora.png)
+![Project Agora Logo](images/project-agora.png)
 
 **An Architectural Blueprint for a Symbiotic, Ethical, and Verifiable AI.**
 
