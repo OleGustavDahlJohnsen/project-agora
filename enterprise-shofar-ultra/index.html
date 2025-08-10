@@ -107,6 +107,30 @@
             line-height: 1.7; 
             opacity: 0.8;
         }
+        
+        .hero-buttons { 
+            display: flex; 
+            justify-content: center; 
+            gap: 1rem; 
+            flex-wrap: wrap; 
+        }
+        
+        .btn {
+            padding: 12px 24px; 
+            text-decoration: none; 
+            border-radius: 8px; 
+            font-weight: 600;
+            transition: transform 0.2s, box-shadow 0.2s; 
+            display: inline-block; 
+            text-align: center;
+            color: var(--bg-dark);
+            background-color: var(--accent-dark);
+        }
+        
+        .btn:hover { 
+            transform: translateY(-2px); 
+            box-shadow: 0 6px 12px rgba(255, 140, 0, 0.25); 
+        }
 
         .content-section { 
             margin: 4rem 0; 
@@ -251,6 +275,9 @@
             <p>
                 This is the Enterprise SHOFAR Edition Ultra v3.0. A bespoke workstation forged from a tribute to the past and a vision for the future. It is not merely a tool, but a partner, engineered with a single purpose: to provide the ultimate hardware foundation for a new era of safe, ethical, and symbiotic AI.
             </p>
+            <div class="hero-buttons">
+                <a href="https://olegustavdahljohnsen.github.io/project-agora/enterprise-shofar-ultra/Enterprise%20SHOFAR%20Edition%20Ultra%20v3.0.pdf" class="btn" target="_blank">Read the Full Specification (PDF)</a>
+            </div>
         </section>
 
         <section class="content-section" id="tribute">
